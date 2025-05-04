@@ -1,1 +1,1 @@
-# simple-rules-for-you-code
+# Простые правила для вашего кода

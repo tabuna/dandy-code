@@ -58,7 +58,7 @@ $fileSystem->write(
 ```php
 // Хорошо ✅
 
- $fileSystem
+$fileSystem
     ->path('/path/to/file.txt')
     ->encoding('UTF-8')
     ->overwrite(true)

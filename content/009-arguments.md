@@ -21,5 +21,3 @@ sendNotification($userId, $message, $urgent = false);
 ```
 
 ### Как поступить, если аргументов много?
-
-

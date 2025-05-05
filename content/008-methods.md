@@ -8,7 +8,7 @@
 Пример
 
 ```php
-// Плохо
+// Плохо ❌
 public function discount(): float
 {
     $this->price -= 10;
@@ -22,6 +22,8 @@ public function discount(): float
 Лучше так
 
 ```php
+// Хорошо ✅
+
 public function discount(): void
 {
     $this->price -= 10;

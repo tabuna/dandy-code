@@ -41,6 +41,7 @@ if ($status === Status::ACTIVE) {
     // ...
 }
 ```
+
 ```php
 enum Status: int
     case ACTIVE = 1;

@@ -25,7 +25,7 @@ class ChirpController extends Controller {
 'chirps' => $chirps] );
     }
     
-    public function  update(Request $request , Chirp $chirp)     {
+        public function  update(Request $request , Chirp $chirp)     {
         $chirp->update($request->validated());
 
         return redirect()->route('chirps.index');

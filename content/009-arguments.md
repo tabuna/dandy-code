@@ -46,9 +46,9 @@ $fileSystem->write(
 ```php
 // Хорошо ✅
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    'Пример данных для записи.', // Содержимое
-    debug: true,
+    '/path/to/file.txt',
+    'Пример данных для записи.',
+    debug: true,  // Именованный параметр
 );
 ```
 

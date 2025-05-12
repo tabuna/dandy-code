@@ -12,6 +12,40 @@
 Но проходит неделя, две, потом месяц — и вот, закомментированный кусок кода переходит от релиза к релизу, будто важная часть кодовой базы.
 Только на деле — это мусор, который мы сами и оставили.
 
+```php
+// Плохо ❌
+class AuthService
+{
+    public function generateAccessToken(int $userId): string
+    {
+        // $this->logger->info("Generating token for user: $userId");
+
+        $payload = [
+            // 'role' => 'user',
+            // 'aud' => 'my-app-client',
+            'sub' => $userId,
+            'exp' => time() + 3600,
+        ];
+
+        // Старый способ генерации токена (оставлен на всякий случай)
+        // $token = base64_encode(json_encode($payload));
+
+        $token = $this->signToken($payload);
+
+        // echo "Generated token: $token";
+
+        return $token;
+
+        // Всё, что ниже — никогда не выполнится
+
+        $this->logTokenGeneration($userId, $token);
+
+        // $refreshToken = $this->generateRefreshToken($userId);
+        // $this->storeRefreshToken($userId, $refreshToken);
+    }
+}
+```
+
 Во-первых, шум. Когда открываешь файл и видишь кучу закомментированного кода, начинаешь гадать: это ещё работает?
  Это было важно? А может, наоборот, это старая логика, которую уже заменили?
  Такой шум мешает сосредоточиться и понять, какой код сейчас «правильный».
@@ -24,5 +58,20 @@
 
 Нет, это не нормально.
 
-Удаляйте без сомнений. Всё, что может пригодиться, уже сохранено в Git.
+```php
+// Хорошо ✅
+class AuthService
+{
+    public function generateAccessToken(int $userId): string
+    {
+        return $this->signToken([
+            'sub' => $userId,
+            'exp' => time() + 3600,
+        ]);
+    }
+}
+```
+
+
+Удаляйте без сомнений. Всё, что может пригодиться, уже сохранено в `Git`.
 Если понадобится — всегда можно восстановить.

@@ -24,7 +24,7 @@ class AuthService
             // 'role' => 'user',
             // 'aud' => 'my-app-client',
             'sub' => $userId,
-            'exp' => time() + 3600,
+            'exp' => $this->calculateExpiration(),
         ];
 
         // Старый способ генерации токена (оставлен на всякий случай)
@@ -66,7 +66,7 @@ class AuthService
     {
         return $this->signToken([
             'sub' => $userId,
-            'exp' => time() + 3600,
+            'exp' => $this->calculateExpiration(),
         ]);
     }
 }

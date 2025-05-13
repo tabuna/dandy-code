@@ -7,10 +7,8 @@
 Есть следующий фрагмент:
 
 ```php
-if ($lock->acquire()) {
-    while (File::where('status', '=', File::STATUS_NEW)->count()) {
-       // ...
-    }
+while (File::where('status', '=', File::STATUS_NEW)->count()) {
+   // ...
 }
 ```
 
@@ -19,10 +17,8 @@ if ($lock->acquire()) {
 Затем к нему дописывается еще условие:
 
 ```php
-if ($lock->acquire()) {
-    while (File::where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
-       // ...
-    }
+while (File::where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
+   // ...
 }
 ```
 
@@ -30,11 +26,9 @@ if ($lock->acquire()) {
 Но что случится, если завтра нужно изменить одно сравнение:
 
 ```diff
-if ($lock->acquire()) {
--    while (File::query()->where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
-+    while (File::query()->where('event_guid', $event->document_id)->where('status', File::STATUS_NEW)->count()) {
+-while (File::query()->where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
++while (File::query()->where('event_guid', $event->document_id)->where('status', File::STATUS_NEW)->count()) {
        // ...
-    }
 }
 ```
 
@@ -44,14 +38,12 @@ if ($lock->acquire()) {
 Но и более развернутый вариант с переносами строк — лишь чуть улучшает diff, но не облегчает жизнь при отладке:
 
 ```php
-if ($lock->acquire()) {
-    while (
-        File::where('event_guid', $event->document_id)
-            ->where('status', File::STATUS_NEW)
-            ->count()
-    ) {
-        // ...
-    }
+while (
+    File::where('event_guid', $event->document_id)
+        ->where('status', File::STATUS_NEW)
+        ->count()
+) {
+    // ...
 }
 ```
 
@@ -71,26 +63,20 @@ dd([
     'secret' => $secret,
 ]);
 
-if ($lock->acquire()) {
-    while (
-        File::query()
-            ->where('event_guid', $event->document_id)
-            ->where('status', File::STATUS_NEW)
-            ->count()
-            >= $secret
-    ) {
-        // ...
-    }
+while (
+    File::query()
+        ->where('event_guid', $event->document_id)
+        ->where('status', File::STATUS_NEW)
+        ->count()
+        >= $secret
+) {
+    // ...
 }
 ```
 
-Вместо этого воспользуемся ранним выходом с которым мы познакомились ранее и вынесем условие:
+~~Вместо этого воспользуемся ранним выходом с которым мы познакомились ранее и вынесем условие:~~
 
 ```php
-if (! $lock->acquire()) {
-    return;
-}
-
 while (true) {
     $count = File::where('event_guid', $event->document_id)
         ->where('status', File::STATUS_NEW)

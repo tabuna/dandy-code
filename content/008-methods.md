@@ -36,3 +36,26 @@ public function total(): float
 ```
 
 Теперь поведение явно разделено: один метод **меняет**, другой **читает**.
+
+
+> TODO: Переделать на пример с экспортом или чем то похожим. Рассказать, что "А что если ты хочешь просто протестировать данные экспорта — без отправки файла? Или переиспользовать логику в другом месте?" и нужно разделить.
+
+```php
+public function export(string $name = 'export')
+{
+    $data = [
+        ['row1:col1', 'row1:col2', 'row1:col3'],
+        ['row2:col1', 'row2:col2', 'row2:col3'],
+        ['row3:col1', 'row3:col2', 'row3:col3'],
+    ];
+
+    return response()->streamDownload(function () use ($data) {
+        $csv = fopen('php://output', 'wb');
+        fputcsv($csv, ['header:col1', 'header:col2', 'header:col3']);
+        foreach ($data as $row) {
+            fputcsv($csv, $row);
+        }
+        fclose($csv);
+    }, "$name.csv");
+}
+```

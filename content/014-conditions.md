@@ -8,7 +8,7 @@
 
 ```php
 if ($lock->acquire()) {
-    while (File::query()->where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
+    while (File::where('event_guid', '=', $event->document_id)->where('status', '=', File::STATUS_NEW)->count()) {
        // ...
     }
 }
@@ -32,9 +32,8 @@ if ($lock->acquire()) {
 ```php
 if ($lock->acquire()) {
     while (
-        File::query()
-            ->where('event_guid', '=', $event->document_id)
-            ->where('status', '=', File::STATUS_NEW)
+        File::where('event_guid', $event->document_id)
+            ->where('status', File::STATUS_NEW)
             ->count()
     ) {
         // ...
@@ -49,9 +48,8 @@ if ($lock->acquire()) {
 Тогда нам нужно будет копировать уже дважды:
 
 ```php
-$count = File::query()
-    ->where('event_guid', '=', $event->document_id)
-    ->where('status', '=', File::STATUS_NEW)
+$count = File::where('event_guid', $event->document_id)
+    ->where('status', File::STATUS_NEW)
     ->count();
 
 dd([
@@ -62,8 +60,8 @@ dd([
 if ($lock->acquire()) {
     while (
         File::query()
-            ->where('event_guid', '=', $event->document_id)
-            ->where('status', '=', File::STATUS_NEW)
+            ->where('event_guid', $event->document_id)
+            ->where('status', File::STATUS_NEW)
             ->count()
             === $secret
     ) {

@@ -66,7 +66,7 @@ class UsrCtrl extends Controller {
 // Хорошо ✅
 class ProfileController extends Controller
 {
-    public function get()
+    public function show()
     {
         // ...
     }

@@ -89,3 +89,25 @@ while (true) {
     // ...
 }
 ```
+
+
+### Избегай "мудреных" решений
+
+
+```php
+// Плохо ❌ 
+return $cache ?: ($compute ?: $default);
+```
+
+```
+// Хорошо ✅
+if ($cache) {
+    return $cache;
+}
+
+if ($computed) {
+    return $compute;
+}
+
+return $default;
+```

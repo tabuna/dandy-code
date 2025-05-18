@@ -201,7 +201,7 @@ class File
 // Плохо ❌
 class File
 {
-    private const SHORT_MEGABYTE = 'MB'
+    private const SHORT_MEGABYTE = 'MB';
     private const BYTES_IN_KILOBYTE = 1024;
     private const KILOBYTES_IN_MEGABYTE = 1024;
 

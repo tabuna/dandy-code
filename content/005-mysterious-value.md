@@ -171,13 +171,65 @@ class Order
 
 ```php
 // Хорошо ✅
-use Carbon\Carbon;
-
 class Order
 {
     public function daysSinceLastUpdate(): float
     {
         return $this->lastUpdatedAt->floatDiffInDays(now());
+    }
+}
+```
+
+Если кажется, что время слишком простой пример, то вот похожий:
+
+```php
+// Плохо ❌
+class File
+{
+    public function humanReadableSize(): string
+    {
+        $megabytes = $this->sizeInBytes / 1024 / 1024;
+        return number_format($megabytes, 2) . ' MB';
+    }
+}
+```
+
+Для которого добавили константы:
+
+
+```php
+// Плохо ❌
+class File
+{
+    private const SHORT_MEGABYTE = 'MB'
+    private const BYTES_IN_KILOBYTE = 1024;
+    private const KILOBYTES_IN_MEGABYTE = 1024;
+
+
+    public function humanReadableSize(): string
+    {
+        $megabytes = $this->size
+            / self::BYTES_IN_KILOBYTE
+            / self::KILOBYTES_IN_MEGABYTE;
+
+        return number_format($megabytes, 2) . ' '. self::SHORT_MEGABYTE;
+    }
+}
+```
+
+Вместо таких констант, лучше всего делать классы которые будут скрывать все эти вычисления. 
+К тому же они сразу же будут переиспользованы в вашем проекте в других местах, чем вводить новые приватные константы или еще хуже обьявлять публичными у `File` и еще больше увеличивать связаность.
+
+
+```php
+// Хорошо ✅
+use DataSize;
+
+class File
+{
+    public function humanReadableSize(): float
+    {
+        return $this->size->toHumanReadable();
     }
 }
 ```

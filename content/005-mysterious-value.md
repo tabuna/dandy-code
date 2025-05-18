@@ -99,3 +99,90 @@ function canBePublished(Status $status): bool
 ```
 
 Используя именованные константы или перечисления, мы делаем код более понятным и поддерживаемым, ведь нам не нужно обращаться ни к документации, ни к коллеге, за прояснениями что важно для разработки масштабируемых приложений.
+
+
+### Переизбыток констант
+
+Когда речь заходит о «магических значениях», первый инстинкт многих начитанных разработчиков — немедленно заменить каждое из них на именованную константу. 
+Как было показано ранее, это логично, но не всегда разумно. Проблема не в самих константах, а в том, как читается код и насколько понятна его суть.
+
+Рассмотрим реальный пример:
+
+```php
+class Order
+{
+    // ...
+
+    public function daysSinceLastUpdate(): float
+    {
+        return (((($this->$lastUpdatedAt / 1_000_000) / 60) / 60) / 24);
+    }
+}
+```
+
+Здесь мы видим цепочку арифметических операций, и каждый разработчик, читающий этот код, вынужден мысленно раскручивать её:
+ «Так, это микросекунды, потом секунды, потом минуты... ага, значит это перевод времени в дни». 
+Это усложняет чтение и отвлекает от сути метода.
+
+
+После слепого ввода констнат пример начиает выгрядеть так:
+```php
+// Плохо ❌
+class Order
+{
+    private const MICROSECONDS_IN_SECOND = 1_000_000;
+    private const SECONDS_IN_MINUTE = 60;
+    private const MINUTES_IN_HOUR = 60;
+    private const HOURS_IN_DAY = 24;
+
+    public function daysSinceLastUpdate(): float
+    {
+        return $this->lastUpdatedAt
+            / self::MICROSECONDS_IN_SECOND
+            / self::SECONDS_IN_MINUTE
+            / self::MINUTES_IN_HOUR
+            / self::HOURS_IN_DAY;
+    }
+}
+```
+
+Формально — код стал «говорящим». Но читается он по-прежнему тяжело. Мы заменили магию чисел на магическое количество деталей,
+
+Вместо того чтобы «расшифровывать» механику времени вручную, лучше полностью передать заботу об этом классу, который создан именно для этой работы. 
+Например, `Carbon`:
+
+```php
+// Хорошо ✅
+use Carbon\Carbon;
+
+class Order
+{
+    public function daysSinceLastUpdate(): float
+    {
+        return Carbon::createFromTimestampMicro($this->lastUpdatedAt)
+            ->floatDiffInDays(now());
+    }
+}
+```
+
+Не всякое «магическое значение» нужно заменять на константу. Иногда лучший способ устранить магию — не объяснять детали вообще. Спрячьте реализацию за выразительным интерфейсом. Пусть код говорит что он делает, а не как.
+
+Еще лучше, будет если наши свойства будут не приметивные данне, а сразу обьеты, тогда:
+
+```php
+// Хорошо ✅
+use Carbon\Carbon;
+
+class Order
+{
+    private const MICROSECONDS_IN_SECOND = 1_000_000;
+    private const SECONDS_IN_MINUTE = 60;
+    private const MINUTES_IN_HOUR = 60;
+    private const HOURS_IN_DAY = 24;
+
+    public function daysSinceLastUpdate(): float
+    {
+        return $this->lastUpdatedAt->floatDiffInDays(now());
+    }
+}
+```

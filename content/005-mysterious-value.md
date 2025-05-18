@@ -189,6 +189,7 @@ class File
     public function humanReadableSize(): string
     {
         $megabytes = $this->sizeInBytes / 1024 / 1024;
+
         return number_format($megabytes, 2) . ' MB';
     }
 }

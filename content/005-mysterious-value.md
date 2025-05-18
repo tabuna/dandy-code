@@ -175,11 +175,6 @@ use Carbon\Carbon;
 
 class Order
 {
-    private const MICROSECONDS_IN_SECOND = 1_000_000;
-    private const SECONDS_IN_MINUTE = 60;
-    private const MINUTES_IN_HOUR = 60;
-    private const HOURS_IN_DAY = 24;
-
     public function daysSinceLastUpdate(): float
     {
         return $this->lastUpdatedAt->floatDiffInDays(now());

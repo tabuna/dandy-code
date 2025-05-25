@@ -40,7 +40,7 @@ class AuthService
 {
     public function generateAccessToken(int $userId): string
     {
-        // $this->logger->info("Generating token for user: $userId");
+        // Log::info("Generating token for user: $userId");
 
         $payload = [
             // 'role' => 'user',

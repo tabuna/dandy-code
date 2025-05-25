@@ -99,7 +99,7 @@ while (true) {
 return $cache ?: ($compute ?: $default);
 ```
 
-```
+```php
 // Хорошо ✅
 if ($cache) {
     return $cache;

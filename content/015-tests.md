@@ -28,16 +28,23 @@
 // Плохо ❌
 public function test_returns_moon_phase_data(): void
 {
-    $response = $this->getJson('/api/moon?date=2025-06-01')
-                     ->assertOk()
-                     ->assertJsonStructure(['age', 'phase', 'distance', 'nextNewMoon'])
-                     ->json();
+    $response = $this->get('/api/moon', [
+            'date' => 2025-06-01,
+        ])
+         ->assertOk()
+         ->assertJsonStructure([
+            'age',
+            'phase',
+            'distance',
+            'nextNewMoon'
+         ])
+         ->json();
 
     $this->assertEquals(13.8, round($response['age'], 1));
     $this->assertEqualsWithDelta(0.47, $response['phase'], 0.01);
     $this->assertEqualsWithDelta(384400, $response['distance'], 50000);
-    $this->assertGreaterThan(strtotime('2025-06-01'), $response['nextNewMoon']);
 }
+
 ```
 
 Но как именно работает функция, вычисляющая фазу Луны? Как она получает данные о Луне? Как она обрабатывает дату? И вроде бы всё хорошо, но это обманка. Такой тест ничего не говорит о логике внутри. Он — витрина. Он проверяет фасад, но не фундамент. Он проверяет только конечный результат. 
@@ -58,7 +65,6 @@ public function test_moon_phase_for_known_date(): void
     $this->assertEquals(13.8, round($moon->age, 1));
     $this->assertEqualsWithDelta(0.47, $moon->phase, 0.01); // ≈ 47% цикла
     $this->assertEqualsWithDelta(384400, $moon->distance, 50000); // ±50k км — синусоида
-    $this->assertGreaterThan($date->getTimestamp(), $moon->nextNewMoon);
 }
 ```
 
@@ -98,14 +104,14 @@ users:
   - id: 1
     name: Иван Иванов
     email: ivan.ivanov@example.com
-    password: '$2y$10$e0NRDUE8...hashedpassword...'  # "password123"
+    password: '$2y$10$e0NRDUE8...'
     created_at: 2024-05-01 10:00:00
     updated_at: 2024-05-01 10:00:00
 
   - id: 2
     name: Мария Петрова
     email: maria.petrova@example.com
-    password: '$2y$10$Fjs98JDk...hashedpassword...'  # "secret456"
+    password: '$2y$10$Fjs98JDk...'
     created_at: 2024-05-02 12:30:00
     updated_at: 2024-05-02 12:30:00
 ```

@@ -51,7 +51,9 @@ public function export(string $name = 'export')
 
     return response()->streamDownload(function () use ($data) {
         $csv = fopen('php://output', 'wb');
+        
         fputcsv($csv, ['header:col1', 'header:col2', 'header:col3']);
+        
         foreach ($data as $row) {
             fputcsv($csv, $row);
         }

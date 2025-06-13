@@ -19,7 +19,7 @@
 
 ```php
 // Слишком длинный метод ❌
-public function export() 
+public function handle() 
 {
     // ...
     // ...
@@ -41,7 +41,7 @@ public function export()
 
 ```php
 // Слишком длинный метод ❌
-public function export() 
+public function handle() 
 {
     // Загрузка данных
     // Валидация
@@ -73,7 +73,7 @@ public function export()
 
 ```php
 // Хорошо ✅
-public function export()
+public function handle()
 {
     $exporter = new ModelExport($this);
 

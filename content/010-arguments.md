@@ -100,7 +100,7 @@ class ExcludeList
 {
     private array $$list = [];
 
-    public function add(string $itemName, string $itemIdentityName, string $itemIdentityValue)
+    public function add(string $itemName, string $itemIdentityName, string $itemIdentityValue): void
     {
         // ...
     }

@@ -62,6 +62,7 @@ if ($status === STATUS_ACTIVE) {
 Можно пойти дальше ещё дальше и использовать перечисления для явного определения различных значений:
 
 ```php
+// Хорошо ✅
 enum Status: string
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
@@ -76,6 +77,7 @@ if ($status === Status::ACTIVE) {
 ```
 
 ```php
+// Хорошо ✅
 enum Status: int
     case ACTIVE = 1;
     case INACTIVE = 2;
@@ -109,13 +111,14 @@ function canBePublished(Status $status): bool
 Рассмотрим реальный пример:
 
 ```php
+// Плохо ❌
 class Order
 {
     // ...
 
     public function daysSinceLastUpdate(): float
     {
-        return (((($this->$lastUpdatedAt / 1_000_000) / 60) / 60) / 24);
+        return (((($this->lastUpdatedAt / 1_000_000) / 60) / 60) / 24);
     }
 }
 ```

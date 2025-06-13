@@ -124,13 +124,13 @@ public function hasAccess(User $user): bool
         return false;
     }
     
-    if ($user->isAdmin() || $user->isGranted(GRANT::EDIT)) {
-        // Пользователь не заблокирован и является администратором или имеет разрешение на редактирование
+    if ($user->isAdmin()) {
+        // Пользователь является администратором
         return true;
     }
     
-    // Пользователь не заблокирован, но не является администратором и не имеет разрешения на редактирование
-    return false;
+    // Пользователь имеет разрешение на редактирование
+    return $user->isGranted(GRANT::EDIT);
 }
 ```
 

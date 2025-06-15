@@ -36,10 +36,12 @@
 
 ```php
 // Плохо ❌
-class AuthService
+class Auth
 {
-    public function generateAccessToken(int $userId): string
+    public function generateAccessToken(): string
     {
+        $userId = $this->user->getKey(),
+    
         // Log::info("Generating token for user: $userId");
 
         $payload = [
@@ -82,12 +84,12 @@ class AuthService
 
 ```php
 // Хорошо ✅
-class AuthService
+class Auth
 {
-    public function generateAccessToken(int $userId): string
+    public function generateAccessToken(): string
     {
         return $this->signToken([
-            'sub' => $userId,
+            'sub' => $this->user->getKey(),
             'exp' => $this->calculateExpiration(),
         ]);
     }

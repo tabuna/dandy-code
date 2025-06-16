@@ -172,7 +172,7 @@ class ExcludeList
 // Хорошо ✅
 class ExcludeList
 {
-    private array $$list = [];
+    private array $list = [];
 
     public function add(Model $model): static
     {

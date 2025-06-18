@@ -1,0 +1,44 @@
+{
+    "name": "dandy/book",
+    "description": "...",
+    "keywords": ["..."],
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandr Chernyaev",
+            "email": "bliz48rus@gmail.com",
+            "homepage": "https://tabuna.github.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "akh/typograf": "^0.7.0",
+        "illuminate/collections": "^12.0",
+        "illuminate/filesystem": "^12.0",
+        "illuminate/support": "^12.0",
+        "mpdf/mpdf": "^8.2",
+        "spatie/commonmark-highlighter": "^3.0",
+        "symfony/console": "^7.3",
+        "vanderlee/syllable": "^1.9"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^7.3"
+    },
+    "bin": [
+        "dendy"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dendy\\Book\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dendy\\Book\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

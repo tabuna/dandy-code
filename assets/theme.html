@@ -51,10 +51,21 @@
           /* page-break-before: always; */
 
           /* Пространство перед заголовком (чтобы оторвать от предшествующего текста-подписи) */
-          padding-top: 12rem;
+
           padding-bottom: 20ch;
           max-width: 60%;
           text-wrap: balance;
+          position: relative;
+      }
+
+
+      .diamond {
+        display: block;
+        font-size: 18pt;
+        color: #666;
+        margin-bottom: 10px;
+        font-family: sans-serif;
+        letter-spacing: -0.02em;
       }
 
       /* H2 — заголовок раздела внутри главы */
@@ -223,10 +234,12 @@
 
     #toc-title {
       font-weight: bold;
-      font-size: 45px;
+      font-size: 40px;
       padding-top: 0;
       padding-bottom: 10px;
       text-align: center;
+      color: #c62828;
+      border-bottom: 2px solid #c62828;
     }
 
     blockquote {
@@ -303,6 +316,43 @@
       background-color: #525252;
       color: white;
     }
+
+    .chapter-padding {
+      padding-top: 10rem;
+    }
+
+      .chapter-table {
+        border: none;
+        border-radius: 10mm;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      .chapter-row {
+        border: none;
+        border-radius: 10mm;
+      }
+
+      .chapter-icon-cell {
+        background-color: #c62828;
+        width: 80px;
+        height: 80px;
+        border-radius: 10mm;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 10mm;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: -0.5mm;
+      }
+
+      .chapter-cell {
+        border: none;
+      }
+
+      h3 + p {
+        page-break-inside: avoid;
+      }
   </style>
 
 
@@ -310,35 +360,14 @@
 </header>
 
 
+
 <tocpagebreak links="on"
               toc-suppress="on"
-              toc-preHTML="&lt;h1 id=&quot;toc-title&quot;&gt;Оглавление&lt;/h1&gt;"
-              toc-bookmarkText="Contents">
+              toc-preHTML="&lt;h1 id=&quot;toc-title&quot;&gt;Содержание&lt;/h1&gt;"
+              toc-bookmarkText="Contents"
+              toc-odd-header-value="-1"
+              toc-even-header-value="-1"
 
-<!--
-<page_break>
-  Всего символов
-  312947
-  Без пробелов
-  264805
-  Количество слов
-  48143
-
-
-
-  Всего символов
-  146486
-  Без пробелов
-  119863
-  Количество слов
-  26624
-
-  Всего символов
-  58107
-  Без пробелов
-  49761
-  Количество слов
-  8347
--->
-
-
+              toc-odd-footer-value="-1"
+              toc-even-footer-value="-1"
+>

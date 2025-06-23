@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31d9802cd9825f19f6447a9729cba74b",
+    "content-hash": "fc75328388aacb56bd5f046f297a7763",
     "packages": [
         {
             "name": "akh/typograf",
@@ -299,7 +299,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -356,7 +356,7 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -402,7 +402,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -450,16 +450,16 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "4acefe4f2fe646b4c268546a86bb1597f7ff2bcf"
+                "reference": "a5ec0cc347d46ff4aa3615c7739f321df3183fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/4acefe4f2fe646b4c268546a86bb1597f7ff2bcf",
-                "reference": "4acefe4f2fe646b4c268546a86bb1597f7ff2bcf",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/a5ec0cc347d46ff4aa3615c7739f321df3183fb7",
+                "reference": "a5ec0cc347d46ff4aa3615c7739f321df3183fb7",
                 "shasum": ""
             },
             "require": {
@@ -513,11 +513,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-06-11T17:34:33+00:00"
+            "time": "2025-06-17T23:40:32+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -563,7 +563,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v12.19.0",
+            "version": "v12.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -1062,16 +1062,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.10.0",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "c1397390dd0a7e0f11660f0ae20f753d88c1f3d9"
+                "reference": "1fd1935b2d90aef2f093c5e35f7ae1257c448d00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/c1397390dd0a7e0f11660f0ae20f753d88c1f3d9",
-                "reference": "c1397390dd0a7e0f11660f0ae20f753d88c1f3d9",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/1fd1935b2d90aef2f093c5e35f7ae1257c448d00",
+                "reference": "1fd1935b2d90aef2f093c5e35f7ae1257c448d00",
                 "shasum": ""
             },
             "require": {
@@ -1163,7 +1163,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-06-12T10:24:28+00:00"
+            "time": "2025-06-21T15:19:35+00:00"
         },
         {
             "name": "nette/schema",
@@ -3122,6 +3122,72 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "laravel/pint",
+            "version": "v1.22.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/pint.git",
+                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/941d1927c5ca420c22710e98420287169c7bcaf7",
+                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-tokenizer": "*",
+                "ext-xml": "*",
+                "php": "^8.2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.75.0",
+                "illuminate/view": "^11.44.7",
+                "larastan/larastan": "^3.4.0",
+                "laravel-zero/framework": "^11.36.1",
+                "mockery/mockery": "^1.6.12",
+                "nunomaduro/termwind": "^2.3.1",
+                "pestphp/pest": "^2.36.0"
+            },
+            "bin": [
+                "builds/pint"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Database\\Seeders\\": "database/seeders/",
+                    "Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "An opinionated code formatter for PHP.",
+            "homepage": "https://laravel.com",
+            "keywords": [
+                "format",
+                "formatter",
+                "lint",
+                "linter",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/pint/issues",
+                "source": "https://github.com/laravel/pint"
+            },
+            "time": "2025-05-08T08:38:12+00:00"
+        },
         {
             "name": "symfony/var-dumper",
             "version": "v7.3.0",

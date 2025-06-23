@@ -1,0 +1,373 @@
+<header>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/github-gist.min.css">
+  <style>
+      body {
+          /* Базовые параметры шрифта */
+          font-family: "EB Garamond", Georgia, Calibri, sans-serif;
+          /*font-size: 10.4pt;*/
+          font-size: 10.5pt;                         /* кегль текста */
+          line-height: 1.35;                          /* межстрочный интервал */
+          color: #222;
+          hyphens: auto;                             /* переносы */
+          widows: 2;                                 /* минимум 2 строки на новой странице */
+          orphans: 2;
+          margin: 0;
+          padding: 0;
+      }
+
+
+      h1, h2, h3, h4, h5, h6 {
+          page-break-before: avoid;
+          page-break-after: avoid;
+          page-break-inside: avoid;
+
+          word-break: keep-all;
+          hyphens: none;
+          white-space: normal;
+      }
+
+      /* Общие настройки для H1 и H2 */
+      h1, h2 {
+          /* Классический засечковый шрифт для заголовков */
+          font-family: "Times New Roman", Times, serif;
+          /* В большинстве браузеров text-wrap: balance пока экспериментальная,
+             можно оставить или убрать в зависимости от поддержки */
+          text-wrap: balance;
+          /* Отступы сверху/снизу лучше задавать через margin, а не padding */
+          margin-top: 0;
+          margin-bottom: 0.5em;
+          /* Не выравниваем по ширине – заголовок всё же короткий текст */
+          text-align: left;
+
+          page-break-after: avoid;
+          orphans: 2;
+          widows: 2;
+      }
+
+      /* H1 — название главы */
+      h1 {
+          font-size: 2.5rem;         /* ≈35px при стандартном root-size 16px */
+          /* Начало новой главы с новой страницы (для печати и PDF) */
+          /* page-break-before: always; */
+
+          /* Пространство перед заголовком (чтобы оторвать от предшествующего текста-подписи) */
+
+          padding-bottom: 20ch;
+          max-width: 60%;
+          text-wrap: balance;
+          position: relative;
+      }
+
+
+      .diamond {
+        display: block;
+        font-size: 18pt;
+        color: #666;
+        margin-bottom: 10px;
+        font-family: sans-serif;
+        letter-spacing: -0.02em;
+      }
+
+      /* H2 — заголовок раздела внутри главы */
+      h2 {
+          font-size: 1.25rem;        /* ≈20px */
+          margin-top: 2rem;
+          margin-bottom: 1.5rem;
+
+          page-break-after: avoid;
+          page-break-before: always;
+      }
+
+      /* H3 — подзаголовок, акцент внутри раздела */
+      h3 {
+          font-family: Calibri, sans-serif;
+          font-weight: bold;
+          font-size: 1.1875rem;
+          text-align: left;
+          margin-top: 1.5rem;
+          margin-bottom: 1rem;
+
+          /*
+          background: #000;
+          color: #fff;
+          padding: 10px 15px;
+           */
+          padding-left: 1.5rem;
+          position: relative;
+      }
+
+      h3:before{
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1rem;
+          height: 1rem;
+          background-color: red;
+      }
+
+
+      a {
+          color: blue;           /* Цвет ссылок */
+          text-decoration: underline;    /* Убираем подчеркивание */
+      }
+
+      /* Абзац */
+      p {
+          text-indent: 1.2em;      /* Отступ первой строки абзаца */
+          margin-bottom: 0.9em;
+      }
+
+      /* Отступ после абзацев и списков */
+      p,
+      ul,
+      ol {
+          page-break-inside: avoid;
+
+
+      hyphens: auto;
+      hyphenate-limit-chars: 6 3 2;
+
+      /* Правила для предотвращения «висячих» строк */
+      widows: 2;
+      orphans: 2;
+
+          text-align: justify;
+          overflow-wrap: break-word;
+          text-wrap: balance;
+          margin-bottom: 20px;   /* Расстояние вниз между блоками текста */
+      }
+
+      /*
+      pre {
+          line-height: 18px;
+          page-break-inside: avoid;
+          background-color: #fafafa;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          padding-left: 15px;
+          margin-bottom: 30px;
+      }
+
+      pre code {
+          background: none;
+          font-size: 8pt;
+          line-height: 1.4;
+          color: #2d2d2d;
+          text-align: left;
+      }
+       */
+
+      pre {
+          page-break-inside: avoid;
+          break-inside: avoid;       /* для современных браузеров и движков */
+          background-color: #fafafa;
+          padding: 12pt 15pt;            /* внутренние отступы в pt для типографической согласованности */
+          margin-bottom: 10mm;           /* разделение с другими блоками — в мм для точности в печати */
+          overflow-x: auto;              /* скролл при длинных строках */
+          border-radius: 4pt;            /* лёгкие скругления */
+          font-family: Consolas, Monaco, 'Courier New', monospace; /* моноширинный */
+          font-size: 8pt;
+          line-height: 1.5;              /* оптимальный межстрочный интервал */
+      }
+
+      pre code {
+          background: none;
+          font-size: 8pt;
+          line-height: 1.5;
+          color: #2d2d2d;
+          text-align: left;
+          white-space: pre-wrap;         /* перенос строк, чтобы не выходили за границы */
+          word-break: break-word;        /* аккуратный перенос длинных слов */
+          letter-spacing: 0.02em;        /* чуть увеличенный межбуквенный интервал для читаемости */
+      }
+
+
+      code {
+          /*font-size: 14px;*/
+          color: #A5215D;
+
+          background-color: #fafafa;
+          border-radius: .2rem;
+          padding: .1rem .2rem;
+          display: inline;
+      }
+
+    .mpdf_toc {
+      font-family: calibri;
+      color: #252525;
+    }
+
+    div.mpdf_toc_level_0 {
+      line-height: 36px;
+    }
+
+    div.mpdf_toc_level_1 {
+      line-height: 30px;
+    }
+
+    div.mpdf_toc_level_2 {
+      line-height: 30px;
+    }
+
+    span.mpdf_toc_t_level_0, span.mpdf_toc_p_level_0 {
+      color: #252525;
+      font-family: calibri;
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    span.mpdf_toc_t_level_1, span.mpdf_toc_p_level_1 {
+      color: #252525;
+      font-family: calibri;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    span.mpdf_toc_t_level_2, span.mpdf_toc_p_level_2 {
+      color: #252525;
+      font-family: calibri;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    #toc-title {
+      font-weight: bold;
+      font-size: 40px;
+      padding-top: 0;
+      padding-bottom: 10px;
+      text-align: center;
+      color: #c62828;
+      border-bottom: 2px solid #c62828;
+    }
+
+    blockquote {
+      margin-top: 0;
+      margin-right: 0;
+      margin-bottom: 30px;
+      margin-left: 0;
+      page-break-inside: avoid;
+
+
+        background: #f5f2ef;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-style: italic;
+    }
+
+    blockquote p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    blockquote.quote {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-style: italic;
+    }
+
+    blockquote.notice {
+      background-color: #f0f5ff;
+      border-left: solid 5px #5b87dd;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    blockquote.notice strong {
+      color: #255ac0;
+    }
+
+    blockquote.warning {
+      background-color: #ffeced;
+      border-left: solid 5px #dd787d;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    blockquote.warning strong {
+      color: #c0262b;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #525252;
+      color: white;
+    }
+
+    .chapter-padding {
+      padding-top: 10rem;
+    }
+
+      .chapter-table {
+        border: none;
+        border-radius: 10mm;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      .chapter-row {
+        border: none;
+        border-radius: 10mm;
+      }
+
+      .chapter-icon-cell {
+        background-color: #c62828;
+        width: 80px;
+        height: 80px;
+        border-radius: 10mm;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 10mm;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: -0.5mm;
+      }
+
+      .chapter-cell {
+        border: none;
+      }
+
+      h3 + p {
+        page-break-inside: avoid;
+      }
+  </style>
+
+
+
+</header>
+
+
+
+<tocpagebreak links="on"
+              toc-suppress="on"
+              toc-preHTML="&lt;h1 id=&quot;toc-title&quot;&gt;Содержание&lt;/h1&gt;"
+              toc-bookmarkText="Contents"
+              toc-odd-header-value="-1"
+              toc-even-header-value="-1"
+
+              toc-odd-footer-value="-1"
+              toc-even-footer-value="-1"
+>

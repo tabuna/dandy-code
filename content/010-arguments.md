@@ -8,11 +8,11 @@
 ```php
 // Плохо ❌
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    true,                        // Перезаписать файл, если он существует
-    'Пример данных для записи.', // Содержимое
-    'UTF-8',                     // Кодировка
-    true                         // Включаем логирование
+    '/path/to/file.txt', // Путь до файла
+    true,                // Перезаписать файл, если он существует
+    'Пример данных',     // Содержимое
+    'UTF-8',             // Кодировка
+    true                 // Включаем логирование
 );
 ```
 
@@ -29,9 +29,9 @@ $fileSystem->write(
 ```php
 // Плохо ❌
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    null,                        // Перезаписать файл, если он существует
-    'Пример данных для записи.', // Содержимое
+    '/path/to/file.txt', // Путь до файла
+    null,                // Перезаписать файл, если он существует
+    'Пример данных',     // Содержимое
 );
 ```
 Чтобы просто записать файл, нам приходится явно указывать `null` — значение, которое на самом деле нам не нужно.
@@ -41,8 +41,8 @@ $fileSystem->write(
 ```php
 // Хорошо ✅
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    'Пример данных для записи.', // Содержимое
+    '/path/to/file.txt', // Путь до файла
+    'Пример данных',     // Содержимое
 );
 ```
 
@@ -51,9 +51,9 @@ $fileSystem->write(
 ```php
 // Плохо ❌
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    'Пример данных для записи.', // Содержимое
-    true,                        // Перезаписать файл, если он существует
+    '/path/to/file.txt', // Путь до файла
+    'Пример данных',     // Содержимое
+    true,                // Перезаписать файл, если он существует
 );
 ```
 
@@ -69,7 +69,7 @@ $fileSystem->write(
 // Плохо ❌
 $fileSystem->write(
     '/path/to/file.txt',
-    'Пример данных для записи.',
+    'Пример данных',
     [
         'encoding' => 'UTF-8',
         'overwrite' => true,
@@ -87,9 +87,9 @@ $config = new Config($encoding, $overwrite, $debug);
 
 // Пример использования
 $fileSystem->write(
-    '/path/to/file.txt',         // Путь до файла
-    null,                        // Перезаписать файл, если он существует
-    $config,                     //
+    '/path/to/file.txt', // Путь до файла
+    null,                // Перезаписать файл, если он существует
+    $config,             //
 );
 ```
 
@@ -100,7 +100,7 @@ $fileSystem->write(
 ```php
 $fileSystem->write(
     '/path/to/file.txt',
-    'Пример данных для записи.',
+    'Пример данных',
     debug: true, // Именованный параметр
 );
 ```
@@ -111,7 +111,7 @@ $fileSystem->write(
 ```php
 $fileSystem->write(
     '/path/to/file.txt',
-    'Пример данных для записи.',
+    'Пример данных',
     debug: true,  // Именованный параметр
 );
 ```
@@ -126,7 +126,7 @@ $fileSystem
     ->encoding('UTF-8')
     ->overwrite(true)
     ->debug(true)
-    ->write('Пример данных для записи.');
+    ->write('Пример данных');
 ```
 
 В этом подходе сразу видно, что происходит. Каждый шаг отделён, названия методов описывают действия, и вся цепочка читается как связный набор настроек. Такой стиль легко расширяется, хорошо покрывается тестами и открывает дорогу к более гибкой архитектуре.
@@ -149,12 +149,20 @@ class ExcludeList
 {
     private array $list = [];
 
-    public function add(string $itemName, string $itemIdentityName, string $itemIdentityValue): void
+    public function add(
+        string $itemName,
+        string $itemIdentityName,
+        string $itemIdentityValue
+    ): void
     {
         // ...
     }
 
-    public function has(string $itemName, string $itemIdentityName, string $itemIdentityValue): bool
+    public function has(
+        string $itemName,
+        string $itemIdentityName,
+        string $itemIdentityValue
+    ): bool
     {
         // ...
     }
@@ -197,7 +205,3 @@ class ExcludeList
 
 Теперь метод `add` и метод `has` работают с объектами, а не с простыми значениями. 
 Это упрощает добавление новых параметров и изменений в модель, не затрагивая логику работы методов, а также облегчает тестирование.
-
-
-
-TODO: Раздел `Предпочитайте обьекты` конфликтует с `Как поступить, если аргументов много?`

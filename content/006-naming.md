@@ -201,12 +201,20 @@ class ExcludeItemStorage
 {
     private ?array $excludeStorage = [];
 
-    public function addItem(string $itemName, string $itemIdentityName, string $itemIdentityValue)
+    public function addItem(
+        string $itemName,
+        string $itemIdentityName,
+        string $itemIdentityValue
+    )
     {
         // ...
     }
 
-    public function isItemExcluded(string $itemName, string $itemIdentityName, string $itemIdentityValue): bool
+    public function isItemExcluded(
+        string $itemName,
+        string $itemIdentityName,
+        string $itemIdentityValue
+    ): bool
     {
         // ...
     }

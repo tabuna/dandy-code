@@ -147,7 +147,7 @@ $fileSystem
 // Плохо ❌
 class ExcludeList
 {
-    private array $$list = [];
+    private array $list = [];
 
     public function add(string $itemName, string $itemIdentityName, string $itemIdentityValue): void
     {

@@ -4,7 +4,7 @@ return [
     /**
      * The book title.
      */
-    'title' => 'Dandy Code',
+    'title' => 'Dendy Code',
 
     /**
      * The author name.

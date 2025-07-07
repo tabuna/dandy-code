@@ -173,7 +173,7 @@ tests/
 
 PHPUnit и Laravel поддерживают специальный флаг для случайного порядка `--order-by=random`
 
-```bash
+```shell
 # Для Laravel
 php artisan test --order-by=random
 

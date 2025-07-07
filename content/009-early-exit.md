@@ -161,7 +161,7 @@ public function hasAccess(User $user): bool
         // Пользователь заблокирован
         return false;
     }
-    
+
     if ($user->isAdmin()) {
         // Пользователь является администратором
         return true;

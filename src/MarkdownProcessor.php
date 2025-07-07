@@ -1,8 +1,9 @@
 <?php
 
-namespace Dendy\Book;
+namespace Dandy\Book;
 
 use Illuminate\Support\Str;
+use Laravelsu\Highlight\CommonMark\HighlightExtension;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -28,10 +29,13 @@ class MarkdownProcessor
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new TaskListExtension());
+        $environment->addExtension(new HighlightExtension('/Users/tabuna/GitHub/dandy-code/assets/hightlight.css'));
 
+        /*
         $environment->addRenderer(FencedCode::class, new FencedCodeRenderer());
-        $environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer());
 
+        $environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer());
+*/
         $this->converter = new MarkdownConverter($environment);
     }
 
@@ -70,7 +74,8 @@ class MarkdownProcessor
                     ."<p$pAttr>$pContent</p>"
                     .'</div>';
             }
-        )->toString();
+        )
+            ->toString();
     }
 
     /**

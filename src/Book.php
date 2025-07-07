@@ -1,6 +1,6 @@
 <?php
 
-namespace Dendy\Book;
+namespace Dandy\Book;
 
 use Illuminate\Support\Str;
 use Mpdf\Config\ConfigVariables;

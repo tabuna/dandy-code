@@ -1,6 +1,6 @@
 <?php
 
-namespace Dendy\Book;
+namespace Dandy\Book;
 
 use Illuminate\Filesystem\Filesystem;
 use SplFileInfo;

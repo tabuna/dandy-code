@@ -20,7 +20,8 @@
         "mpdf/mpdf": "^8.2",
         "spatie/commonmark-highlighter": "^3.0",
         "symfony/console": "^7.3",
-        "vanderlee/syllable": "^1.9"
+        "vanderlee/syllable": "^1.9",
+        "laravelsu/highlight" : "@dev"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.3",
@@ -31,12 +32,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Dendy\\Book\\": "src/"
+            "Dandy\\Book\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dendy\\Book\\Tests\\": "tests/"
+            "Dandy\\Book\\Tests\\": "tests/"
         }
     },
     "config": {

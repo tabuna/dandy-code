@@ -4,7 +4,7 @@ return [
     /**
      * The book title.
      */
-    'title' => 'Dendy Code',
+    'title' => 'Dandy Code',
 
     /**
      * The author name.
@@ -19,6 +19,7 @@ return [
         //        'times' => 'times-regular.ttf',
         'emoji' => 'NotoColorEmoji-Regular.ttf',
         'golos' => 'GolosText-VariableFont_wght.ttf',
+        'JetBrains Mono' => 'JetBrainsMono.ttf'
     ],
 
     /**

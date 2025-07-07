@@ -162,7 +162,7 @@ class Order
 {
     public function daysSinceLastUpdate(): float
     {
-        return Carbon::createFromTimestampMicro($this->lastUpdatedAt)
+        return Carbon::create($this->lastUpdatedAt)
             ->floatDiffInDays(now());
     }
 }

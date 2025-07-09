@@ -21,19 +21,20 @@
 
 ```php
 // Плохо ❌
-class  ChirpController extends Controller {
+class  BlipController extends Controller {
   public  function index (){
-        $chirps=Chirp::with('user')->latest()->get() ;
-        return view( 'chirps.index',[
-'chirps' => $chirps] );
+        $blips=Blip::with('user')->latest()->get() ;
+        return view( 'blips.index',[
+'blips' => $blips] );
     }
     
-        public function  update(Request $request , Chirp $chirp)     {
-        $chirp->update($request->validated());
+        public function  update(Request $request , Blip $observation)     {
+        $blip->update($request->validated());
 
-        return redirect()->route('chirps.index');
+        return redirect()->route('blips.index');
     }
 }
+
 ```
 
 Код рабочий, компилятор на него не ругается.
@@ -53,7 +54,7 @@ class  ChirpController extends Controller {
 Допустим, в проекте работают два разработчика. Один оформляет класс так:
 
 ```php
-class ChirpController extends Controller {
+class BlipController extends Controller {
     // ...
 }
 ```
@@ -61,7 +62,7 @@ class ChirpController extends Controller {
 А другой — вот так:
 
 ```php
-class ChirpController extends Controller 
+class BlipController extends Controller 
 {
     // ...
 }
@@ -90,22 +91,22 @@ class ChirpController extends Controller
 
 ```php
 // Хорошо ✅
-class ChirpController extends Controller
+class BlipController extends Controller
 {
     public function index()
     {
-        $chirps = Chirp::with('user')->latest()->get();
+        $blips = Blip::with('user')->latest()->get();
 
-        return view('chirps.index', [
-            'chirps' => $chirps,
+        return view('blips.index', [
+            'blips' => $blips,
         ]);
     }
 
-    public function update(Request $request, Chirp $chirp)
+    public function update(Request $request, Blip $blip)
     {
-        $chirp->update($request->validated());
+        $blip->update($request->validated());
 
-        return redirect()->route('chirps.index');
+        return redirect()->route('blips.index');
     }
 }
 ```
@@ -122,9 +123,17 @@ class ChirpController extends Controller
 
 Это всё равно что зайти на госуслуги и увидеть форму для входа, где можно ввести в свободное поле СНИЛС или номер телефона.
 Который можно ввести по-разному:
-`89512345678`, `+79512345678`, `9512345678`, `+7(951)234-56-78` — и ещё множество вариантов.
+
+- `89512345678`, 
+- `+79512345678`,
+- `9512345678`, 
+- `+7(951)234-56-78` 
+- и ещё множество вариантов.
+
 Было бы странно, если бы где-то внизу было сказано: «Если вы вводите номер телефона, вводите его строго в формате XXX».
 Сайт заботится о пользователе и сам стандартизирует ввод, приводя ваш номер к единому формату.
+
+![phone-format.svg](assets/img/phone-format.jpg)
 
 Поведение должно быть аналогичным: разработчик отправил код. Линтер в CI автоматически привёл его в порядок.
 После этого — запустились тесты. Всё прошло. Разработчик спокойно обедает. Команда работает.

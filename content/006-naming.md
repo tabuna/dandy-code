@@ -1,5 +1,65 @@
 # Именование
 
+Иногда достаточно открыть структуру проекта, чтобы многое понять о команде. И не в лучшую сторону.
+Например, можно встретить такие каталоги:
+
+```php
+old_config/
+mordor/
+black_magic/
+```
+
+Причин для их появления масса. Кто-то просто скопировал старую директорию. Кто-то решил временно “вынести в сторону”
+непонятный или страшный код. Но так и не разобрался, что с ним делать. А потом это «временно» прижилось и стало частью
+архитектуры. Это симптом того, что именованию в проекте никто не уделяет
+внимания. А ведь имена — это первая линия коммуникации.
+
+Теперь представьте, что вы открыли чужой код и наткнулись на переменные:
+
+```php
+$pogoda;
+$veter;
+$solnce;
+```
+
+Такие имена мгновенно выдают новичка.
+
+Это похожа как я делал это в 00-годы, когда отправлял другу СМС сообщения.
+Тогда можно было указать ограниченное количество символов, и на английском языке их было несколько больше и что бы влезь в лимиты длинные сообщения  
+писал транслитом:
+
+```text
+Privet. Mi segodnya vtretimsa v parke?
+...
+```
+
+Это была вынужденная мера, но та эпоха давно закончилась.
+В программном коде большинство фреймворков, библиотек, документаций — на английском.
+Когда в коде:
+
+```php
+class Order extends Controller
+
+public function ...()
+{
+  // ...
+  foreach ($zakazy as $tovar) {
+    $product->otpravka($tovar);
+    }
+  // ...
+}
+```
+
+Создается разрыв контекста, фреймворк говорит на одном языке, твой код — на другом.
+Переключаться между языками утомительно, особенно в больших проектах.
+Это снижает читаемость и замедляет понимание.
+
+Если имена переменных, файлов, классов, папок не передают смысл, они становятся ментальным мусором.
+Чем их больше — тем труднее читать, понимать и поддерживать код.
+
+Поэтому нужно заботиться об именовании. Но что делает имена хорошими?
+И как начать исправлять это прямо сейчас?
+
 Некоторым разработчикам нравятся использовать сокращения в именах, что кажется для них удобным и помогает ускорить написание кода. Это может быть как однобуквенные вариации так и сокращения, например итерация цикла как `$i`, запрос как `q`, интерфейс как `IComponent`. Но они только приводят привести к путанице и усложнить поддержку кода.
 Код наполненными сокращениями похож на шифровку. А мы же не в разведке.
 
@@ -52,24 +112,28 @@ class ProfileController extends Controller
 Рассмотрим наглядный пример, достойный быть высеченным в граните Legacy-кода:
 
 ```php
-abstract class AbstractContextHandler implements ContextHandlerInterface
+abstract class AbstractContextHandler
 {
     use SemanticMapper;
 
-    public string $moduleNamespaceScopeIdentifier = 'reporting_contextualization_subsystem';
+    public string $moduleScopeIdentifier = 'reporting';
 
-    public function process(array $contextualizedComponentUnitPayloadArray): array
+    public function process(
+        array $contextualizedComponentUnitPayloadArray
+    ): array
     {
-        $moduleScopedResponseUnits = [];
+        $moduleScopedUnits = [];
 
-        foreach ($contextualizedComponentUnitPayloadArray as $contextBoundSemanticUnit) {
-            $moduleScopedResponseUnits[] = $this->transformComponentContextUnit($contextBoundSemanticUnit);
+        foreach ($contextualizedComponentUnitPayload as $contextBoundSemanticUnit) {
+            $moduleScopedResponseUnits[] = $this->transformContextUnit($contextBoundSemanticUnit);
         }
 
         return $moduleScopedResponseUnits;
     }
 
-    protected function transformComponentContextUnit($contextBoundSemanticUnit): array
+    protected function transformContextUnit(
+        $contextBoundSemanticUnit
+    ): array
     {
         return [
             'encodedContextualPayloadFragment' => $this->map($contextBoundSemanticUnit),

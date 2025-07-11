@@ -32,7 +32,7 @@ $solnce;
 
 ```text
 Privet. Mi segodnya vtretimsa v parke?
-...
+Ya vzal s soboy...
 ```
 
 Это была вынужденная мера, но та эпоха давно закончилась.

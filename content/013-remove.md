@@ -36,37 +36,34 @@
 
 ```php
 // Плохо ❌
-class Auth
+public function generateAccessToken(): string
 {
-    public function generateAccessToken(): string
-    {
-        $userId = $this->user->getKey(),
-    
-        // Log::info("Generating token for user: $userId");
+    $userId = $this->user->getKey(),
 
-        $payload = [
-            // 'role' => 'user',
-            // 'aud' => 'my-app-client',
-            'sub' => $userId,
-            'exp' => $this->calculateExpiration(),
-        ];
+    // Log::info("Generating token for user: $userId");
 
-        // Старый способ генерации токена (оставлен на всякий случай)
-        // $token = base64_encode(json_encode($payload));
+    $payload = [
+        // 'role' => 'user',
+        // 'aud' => 'my-app-client',
+        'sub' => $userId,
+        'exp' => $this->calculateExpiration(),
+    ];
 
-        $token = $this->signToken($payload);
+    // Старый способ (оставлен на всякий случай)
+    // $token = base64_encode(json_encode($payload));
 
-        // echo "Generated token: $token";
+    $token = $this->signToken($payload);
 
-        return $token;
+    // echo "Generated token: $token";
 
-        // Всё, что ниже — никогда не выполнится
+    return $token;
 
-        $this->logTokenGeneration($userId, $token);
+    // Всё, что ниже — никогда не выполнится
 
-        // $refreshToken = $this->generateRefreshToken($userId);
-        // $this->storeRefreshToken($userId, $refreshToken);
-    }
+    $this->logTokenGeneration($userId, $token);
+
+    // $refreshToken = $this->generateRefreshToken($userId);
+    // $this->storeRefreshToken($userId, $refreshToken);
 }
 ```
 
@@ -84,15 +81,12 @@ class Auth
 
 ```php
 // Хорошо ✅
-class Auth
+public function generateAccessToken(): string
 {
-    public function generateAccessToken(): string
-    {
-        return $this->signToken([
-            'sub' => $this->user->getKey(),
-            'exp' => $this->calculateExpiration(),
-        ]);
-    }
+    return $this->signToken([
+        'sub' => $this->user->getKey(),
+        'exp' => $this->calculateExpiration(),
+    ]);
 }
 ```
 

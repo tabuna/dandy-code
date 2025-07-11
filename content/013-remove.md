@@ -39,7 +39,6 @@
 public function generateAccessToken(): string
 {
     $userId = $this->user->getKey(),
-
     // Log::info("Generating token for user: $userId");
 
     $payload = [
@@ -55,13 +54,11 @@ public function generateAccessToken(): string
     $token = $this->signToken($payload);
 
     // echo "Generated token: $token";
-
     return $token;
 
     // Всё, что ниже — никогда не выполнится
-
     $this->logTokenGeneration($userId, $token);
-
+    
     // $refreshToken = $this->generateRefreshToken($userId);
     // $this->storeRefreshToken($userId, $refreshToken);
 }

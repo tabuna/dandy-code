@@ -15,6 +15,7 @@
 Пример глубокой вложенности:
 
 ```php
+// Плохо ❌
 if($condition) {                 // уровень 1
     foreach($users as $user) {   // уровень 2
         if($user->isActive()) {  // уровень 3
@@ -77,7 +78,9 @@ public function hasAssign(User $user): bool
         return false;
     }
 
-    return // ... много кода
+    // ... много кода
+    
+    return $result;
 }
 ```
 

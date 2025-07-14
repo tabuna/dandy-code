@@ -164,6 +164,7 @@ abstract class AbstractContextHandler
 $data;
 $var;
 $info;
+$item;
 ```
 
 На первый взгляд выглядят нормально.

@@ -77,7 +77,10 @@ $value = json_encode($value); // теперь строка
 // Плохо ❌
 foreach ($users as $user) {
     if ($user->profile()->isComplete()) {
-        $this->logActivity($user->id, $user->profile()->lastUpdatedAt());
+        $this->logActivity(
+            $user->id, 
+            $user->profile()->lastUpdatedAt()
+        );
     }
 }
 ```
@@ -90,7 +93,10 @@ foreach ($users as $user) {
     $profile = $user->profile();
     
     if ($profile->isComplete()) {
-        $this->logActivity($user->id, $profile->lastUpdatedAt());
+        $this->logActivity(
+            $user->id, 
+            $profile->lastUpdatedAt()
+        );
     }
 }
 ```
@@ -173,7 +179,7 @@ $city = $user->address->city();
 ключей.
 Это затруднит чтение и увеличит количество ошибок — они всегда рядом там, где много ручных проверок.
 
-> {tip} Паттерн `Null Object` полезен не только для возврата значений по умолчанию, но и для реализации методов, которые
+> {notice} Паттерн `Null Object` полезен не только для возврата значений по умолчанию, но и для реализации методов, которые
 > не должны выполнять никаких действий.
 
 ### Место для расширения

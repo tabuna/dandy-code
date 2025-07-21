@@ -26,9 +26,9 @@ $solnce;
 
 Такие имена мгновенно выдают новичка.
 
-Это похожа как я делал это в 00-годы, когда отправлял другу СМС сообщения.
-Тогда можно было указать ограниченное количество символов, и на английском языке их было несколько больше и что бы влезь в лимиты длинные сообщения  
-писал транслитом:
+Это напоминает, как я писал СМС-сообщения в нулевых: тогда сообщения имели ограничение по
+количеству символов, а на латинской раскладке в одно сообщение помещалось намного больше текста, чем при использовании кирилицы.
+По этому если не удавалась уложиться в лимит, я писал транслитом:
 
 ```text
 Privet. Mi segodnya vtretimsa v parke?
@@ -41,14 +41,15 @@ Ya vzal s soboy...
 
 ```php
 class Order extends Controller
-
-public function ...()
 {
-  // ...
-  foreach ($zakazy as $tovar) {
-    $product->otpravka($tovar);
+    public function ...()
+    {
+        // ...
+        foreach ($zakazy as $tovar) {
+            $product->otpravka($tovar);
+        }
+        // ...
     }
-  // ...
 }
 ```
 
@@ -66,11 +67,11 @@ public function ...()
 Некоторые языки даже рекомендуют подобный подход — например, в Go советуют:
 
 > The name of a method's receiver should
-be a reflection of its identity; often a one
-or two letter abbreviation of its type
-suffices (such as c for cl or s for
-Server). Don't use generic names such
-as me, this, or self.
+> be a reflection of its identity; often a one
+> or two letter abbreviation of its type
+> suffices (such as c for cl or s for
+> Server). Don't use generic names such
+> as me, this, or self.
 
 Сокращения могут быть как однобуквенными, так и более длинными или смешанными, например итерация цикла как `$i`, запрос как `q`, интерфейс как `IComponent`.
 Однако зачастую такие сокращения лишь приводят к путанице и усложняют поддержку кода.

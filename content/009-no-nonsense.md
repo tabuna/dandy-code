@@ -119,12 +119,17 @@ if (isset($user['address']['city'])) {
 }
 ```
 
-Но представьте, что таких вложенных ключей много, и данные разбросаны по всему коду.
-Чтобы получить ещё одно значение, приходится снова писать `isset` с длинной цепочкой:
+Сначала это кажется безобидным. 
+Но когда таких вложенных ключей становится много, и данные разбросаны по всему коду, всё усложняется.
+Вместо того, что бы описывать логику поведения, мы продолжаем манипуляции с данными на низком уровне.
+Чтобы получить ещё одно значение, снова и снова приходится писать `isset` с длинной цепочкой:
 
 ```php
 // Плохо ❌
-if (isset($user['address']['city']) && isset($user['preferences']['language'])) {
+if (
+    isset($user['address']['city']) &&
+    isset($user['preferences']['language'])
+) {
     $city = $user['address']['city'];
     $language = $user['preferences']['language'];
 }
@@ -139,9 +144,14 @@ if (isset($user['address']['city']) && isset($user['preferences']['language'])) 
 // Плохо ❌
 if (isset($user['id'], $user['address']['city'])) {
     $city = $user['address']['city'];
-    $userOrders = array_filter($orders, function($order) use ($user, $city) {
-        return $order['user_id'] === $user['id'] && $order['city'] === $city;
-    });
+
+    $userOrders = array_filter(
+        $orders,
+        function ($order) use ($user, $city) {
+            return $order['user_id'] === $user['id']
+             && $order['city'] === $city;
+        }
+    );
 } else {
     $userOrders = [];
 }
@@ -199,7 +209,7 @@ class ReportGenerator {
 
 class CustomReportGenerator extends ReportGenerator {
     public function generate() {
-        return "Отчёт: специальный формат для финансового отдела";
+        return "Отчёт: специальный формат для фин. отдела";
     }
 }
 ```

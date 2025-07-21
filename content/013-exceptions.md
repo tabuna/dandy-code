@@ -163,51 +163,104 @@ function logException(Throwable $e): void
 
 ### Отладка
 
-Среди разработчиков укоренилось мнение, что пошаговая отладка, например с помощью Xdebug, признак хорошего разработчика. Выглядит это следующим образом: разработчик ставит точку остановки, затем начинает "шагать" по коду, наблюдает за значениями переменных, отслеживает условные переходы — словно читает чужие мысли.
+Среди разработчиков укоренилось мнение, что пошаговая отладка, например с помощью Xdebug, признак хорошего разработчика. 
+Выглядит это следующим образом: разработчик ставит точку остановки, затем начинает "шагать" по коду, наблюдает за значениями переменных, отслеживает условные переходы — словно читает чужие мысли.
 
 Но позвольте — если вам нужно так делать, значит, что-то пошло не так!
 
 Это не норма. Значит, ваш код неочевиден, сложен и плохо структурирован.
 
 Настоящая причина, по которой вам нужно пошагово проходить каждую строчку, в том, что вы не понимаете, что происходит в системе. 
-И не потому что вы недостаточно умны — а потому что код запутан. В нём всё связано со всем, всё влияет на всё, и даже чтобы просто проверить расчёт скидки, вам приходится запускать сервер, кликать через интерфейс и ставить точку останова где-то внутри `processOrder()`.
+И не потому что вы недостаточно умны — а потому что код запутан. В нём всё связано со всем, всё влияет на всё, и даже чтобы просто проверить, вам приходится запускать сервер, кликать через интерфейс и ставить точку останова где-то внутри `processOrder()`.
 
-Вот как это обычно выглядит:
+
+Представим, что система должна вернуть рекомендацию пользователю — выходить ли на улицу:
 
 ```php
 // Плохо ❌
-function handleRequest($input) {
+function shouldGoOutside(array $weatherData): bool
+{
     try {
-        $value = complexCalculation($input);
-        if ($value > 0) {
-            $details = $this->service->getDetails($value);
-            if ($details && $details['status'] == 'ok') {
-                processDetails($details);
-                return;
-            }
+        if (!isset($weatherData['temperature']) || !isset($weatherData['wind'])) {
+            return false;
         }
-        for ($i = 0; $i < 5; $i++) {
+
+        $temp = $weatherData['temperature'];
+        $wind = $weatherData['wind'];
+        $precip = $weatherData['precipitation'] ?? 0;
+        $alerts = $weatherData['alerts'] ?? [];
+
+        if ($temp < -10) {
+            if ($temp < -30) {
+                Log::warning("Экстремально низкая температура: $temp");
+            }
+            return false;
+        }
+
+        if ($temp > 35 && self::isExtremeTemp($temp)) {
+            return false;
+        }
+
+        if ($wind > 20) {
+            if ($wind > 50) {
+                Log::info("Штормовой ветер: $wind м/c");
+            }
+            return false;
+        }
+
+        if ($precip > 70 && self::hasPrecipitationRisk($precip)) {
+            return false;
+        }
+
+        foreach ($alerts as $alert) {
             try {
-                retryOperation($i);
-                break;
-            } catch (Exception $exception) {
-                // пустое
+                if (
+                    isset($alert['type'], $alert['severity']) &&
+                    $alert['type'] === 'storm'
+                ) {
+                    if ($alert['severity'] === 'high' && self::isStorm($alert)) {
+                        return false;
+                    }
+                }
+            } catch (Throwable) {
+                // проигнорировано
             }
         }
-    } catch (Exception $exception) {
+
+        return true;
+    } catch (Throwable $e) {
         Log::error($e);
+        return false;
     }
 }
 ```
 
 Здесь есть и вложенные блоки `try-catch`, и `if` внутри `if`, и цикл с ловлей исключений «внутри» функции.
-Без отладки трудно понять: за какой именно шаг «цепи» падает — внешняя обработка или внутренняя. Такой код трудно тестировать: чтобы проверить `handleRequest`, нужно настроить и дублировать логику `complexCalculation`, `service->getDetails` и т.д.
-
+Без отладки трудно понять: за какой именно шаг «цепи» падает — внешняя обработка или внутренняя. 
 
 А теперь посмотрите, как это должно быть устроено:
 
 ```php
-// TODO: пишем тест
+final class DecisionEngine
+{
+    /**
+     * @param WeatherRule[] $rules
+     */
+    public function __construct(
+        private array $rules
+    ) {}
+
+    public function shouldGoOutside(array $weather): bool
+    {
+        foreach ($this->rules as $rule) {
+            if (!$rule->passes($weather)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
 ```
 
 Всё. Логика выделена, изолирована, читается за секунду.
@@ -215,6 +268,32 @@ function handleRequest($input) {
 Вы можете протестировать её без всякого дебаггера в тестах:
 
 ```php
-// TODO: пишем тест
+
+$engine = new DecisionEngine([
+    new TemperatureRule(),
+    new WindRule(),
+    new PrecipitationRule(),
+    new NoSevereStormAlertRule(),
+]);
+
+$engine->shouldGoOutside([
+    'temperature' => 20,
+    'wind' => 5,
+    'precipitation' => 10,
+    'alerts' => [],
+]);
 ```
 
+а если нужно, что-то проверить, то мы можем легко добавить тест:
+
+```php
+$rule = new WindRule();
+
+$this->assertTrue($rule->passes(['wind' => 10]));
+$this->assertFalse($rule->passes(['wind' => 25]));
+$this->assertTrue($rule->passes([])); // Ветра нет — нормально
+
+```
+
+Отладка нужна, когда вы не можете локализовать поведение.
+В хорошо структурированном коде вместо Xdebug — вы пишете `->assertTrue(...)`.

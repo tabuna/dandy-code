@@ -208,14 +208,17 @@ class File
     private const BYTES_IN_KILOBYTE = 1024;
     private const KILOBYTES_IN_MEGABYTE = 1024;
 
-
     public function humanReadableSize(): string
     {
         $megabytes = $this->size
             / self::BYTES_IN_KILOBYTE
             / self::KILOBYTES_IN_MEGABYTE;
 
-        return number_format($megabytes, 2) . ' '. self::SHORT_MEGABYTE;
+        return sprintf(
+            '%.2f %s', 
+            $megabytes,
+            self::SHORT_MEGABYTE
+        );
     }
 }
 ```

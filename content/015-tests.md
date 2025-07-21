@@ -45,9 +45,11 @@ public function test_returns_moon_phase_data(): void
             'nextNewMoon'
          ])
          ->json();
+         
+    [$age, $phase] = $response;
 
-    $this->assertEquals(13.8, round($response['age'], 1));
-    $this->assertEqualsWithDelta(0.47, $response['phase'], 0.01);
+    $this->assertEquals(13.8, round($age, 1));
+    $this->assertEqualsWithDelta(0.47, $phase, 0.01);
 }
 
 ```
@@ -267,7 +269,9 @@ public function test_email_is_sent(): void
 
     sleep(3); // надеемся, что задача обработается за это время
 
-    $this->assertDatabaseHas('emails', ['user_id' => $user->id]);
+    $this->assertDatabaseHas('emails', [
+        'user_id' => $user->id
+    ]);
 }
 ```
 
@@ -289,7 +293,10 @@ public function test_email_is_dispatched(): void
 
     $this->dispatch(new SendEmailJob($user));
 
-    Bus::assertDispatched(SendEmailJob::class, fn($job) => $job->user->id === $user->id);
+    Bus::assertDispatched(
+        SendEmailJob::class, 
+        fn($job) => $job->user->id === $user->id
+    );
 }
 ```
 
@@ -307,7 +314,10 @@ public function test_user_status_updated(): void
 
     sleep(5); // «надеемся, что API обновит статус»
 
-    $this->assertEquals('processed', $this->externalApi()->status($user->id));
+    $this->assertEquals(
+        'processed', 
+        $this->externalApi()->status($user->id)
+    );
 }
 ```
 

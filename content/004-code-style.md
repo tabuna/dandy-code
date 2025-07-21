@@ -34,7 +34,6 @@ class  BlipController extends Controller {
         return redirect()->route('blips.index');
     }
 }
-
 ```
 
 Код рабочий, синтаксических ошибок нет.

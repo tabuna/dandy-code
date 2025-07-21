@@ -140,7 +140,11 @@ function logException(Throwable $e): void
         $e->getTraceAsString()
     );
 
-    file_put_contents(__DIR__ . '/error.log', $logMessage, FILE_APPEND);
+    file_put_contents(
+        __DIR__ . '/error.log',
+        $logMessage,
+        FILE_APPEND
+    );
 }
 ```
 

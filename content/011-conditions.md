@@ -119,7 +119,8 @@ private function newFilesQuery(): bool
 
 private function hasTooManyNewFiles(Event $event): bool
 {
-    return $this->newFilesQuery()->count() > $this->threshold();
+    return $this->newFilesQuery()->count()
+        > $this->threshold();
 }
 ```
 

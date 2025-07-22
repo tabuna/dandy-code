@@ -222,54 +222,64 @@ $shouldRetry
 
 ### Единицы измерения
 
-Теперь давайте рассмотрим пример именования с единицами измерений
+Рассмотрим пример именования переменных с указанием единиц измерения температуры:
 
 ```php
 // Плохо ❌
-// Мы не знаем, что представляет собой число 100
-$averageTime = 100;
+$temperature = 98.6;
+```
+
+На первый взгляд всё выглядит нормально — просто число. Но что это за температура?
+Фаренгейты? Градусы Цельсия? Кельвины?
+
+Ситуация усложняется, если в другом месте кода встречается:
+
+```php
+$temperature = 37;
+```
+
+Чтобы избежать путаницы, можно явно указывать единицы измерения:
+
+```php
+// Хорошо ✅
+// Мы явно указываем, что это температура в фаренгейтах
+$temperatureInFahrenheit = 98.6;
 
 // Хорошо ✅
-// Мы понимаем что значение имеет величину 100мс
-$averageTimeInMs = 100;
+// Или в градусах Цельсия
+$temperatureInCelsius = 37;
 ```
 
-Другой способ справиться с этим — создать специальные объекты. Представьте, что вам нужно работать с процентами. Что из этого верно?
+Другой способ справиться с этим — создать специальные объекты.
+Создадим объект `Temperature` со статическими конструкторами, каждый из которых явно указывает единицу измерения:
 
 ```php
-// Плохо ❌
-$percentage = 0.5;
-$percentage = 50;
-```
-
-Встретив такую переменную, вы не сможете сказать какое значение ожидает ваше приложение.
-Давайте теперь воспользуемся объектом со статическим конструктором, по одному для каждой возможности.
-
-```php
-class Percentage
+class Temperature
 {
-    public static function fromInt(int $percentage): self
+    public static function fromCelsius(float $degrees): self
     {
-        return new self($percentage);
+        return new self($degrees);
     }
 
-    public static function fromFloat(float $percentage): self
+    public static function fromFahrenheit(float $degrees): self
     {
-        return new self($percentage * 100);
+        $celsius = self::convertFahrenheitToCelsius($degrees);
+
+        return new self($celsius);
     }
 
     private function __construct(
-        public int $value;
-    ) {};
+        public float $valueInCelsius,
+    ) {}
 }
 ```
 
-Использование класса `Percentage` поясняет, что ожидается целое число.
+Использование класса `Temperature` поясняет, что ожидается:
 
 ```php
 // Хорошо ✅
-$percentage = Percentage::fromFloat(0.5);
-$percentage = Percentage::fromInt(50);
+$temperature = Temperature::fromFahrenheit(98.6); // 37.0°C
+$temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 ```
 
 ### Будьте кратки

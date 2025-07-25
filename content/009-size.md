@@ -127,7 +127,7 @@ if ($user->isAdmin() || $user->hasRole('manager')) {
 ```php
 // Хорошо ✅
 if ($user->canExport($document)) {
-    $content = $user->export(Excel::class);
+    $content = $document->export(Excel::class);
 }
 ```
 

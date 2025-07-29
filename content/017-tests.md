@@ -50,7 +50,6 @@ public function test_returns_moon_phase_data(): void
     $this->assertEquals(13.8, round($age, 1));
     $this->assertEqualsWithDelta(0.47, $phase, 0.01);
 }
-
 ```
 
 Это хороший тест, который проверяет, что API возвращает правильные данные для известной даты.

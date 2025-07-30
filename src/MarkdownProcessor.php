@@ -3,16 +3,16 @@
 namespace Dandy\Book;
 
 use Illuminate\Support\Str;
-use Laravelsu\Highlight\CommonMark\HighlightExtension;
+use JoliTypo\Fixer;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
-use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\MarkdownConverter;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
-use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
+use Symfony\Component\DomCrawler\Crawler;
+use Tempest\Highlight\CommonMark\HighlightExtension;
+use Tempest\Highlight\Highlighter;
+use Tempest\Highlight\Themes\InlineTheme;
 use Vanderlee\Syllable\Syllable;
 
 class MarkdownProcessor
@@ -29,7 +29,11 @@ class MarkdownProcessor
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new TaskListExtension());
-        $environment->addExtension(new HighlightExtension('/Users/tabuna/GitHub/dandy-code/assets/hightlight.css'));
+
+        //$environment->addExtension(new PhikiExtension(Theme::GithubLight));
+
+        $highlighter = new Highlighter(new InlineTheme(__DIR__ . '/../assets/hightlight.css'));
+        $environment->addExtension(new HighlightExtension($highlighter));
 
         /*
         $environment->addRenderer(FencedCode::class, new FencedCodeRenderer());
@@ -47,6 +51,50 @@ class MarkdownProcessor
         $html = $this->converter->convert($markdown);
         $html = $this->prepareForPdf($html, $index);
 
+        $fixer = new Fixer([
+            'Ellipsis',
+            'Dimension',
+            'Unit',
+            'Dash',
+            'SmartQuotes',
+            'NoSpaceBeforeComma',
+            'CurlyQuote',
+            'Trademark',
+        ]);
+
+        $fixer->setLocale("ru");
+
+
+        $crawler = new Crawler($html);
+
+        $crawler
+            ->filter('p,li')
+            ->each(function (Crawler $elm) use ($fixer, &$html) {
+
+                $content = $elm->html();
+
+                $paragraph = $fixer->fix($content);
+
+                $html = Str::of($html)->replace($content, $paragraph);
+
+                $t = new \Akh\Typograf\Typograf();
+                $html = $t->apply($html);
+            });
+
+
+        $crawler
+            ->filter('p,li')
+            ->each(function (Crawler $elm) use ($fixer, &$html) {
+
+                $content = $elm->html();
+
+                $paragraph = $this->preventShortWordOrphans($content, 4);
+
+                $html = Str::of($html)->replace($content, $paragraph);
+            });
+
+
+
         $syllable = new Syllable('ru');
         $syllable->setCache(null);
         $syllable->setMinWordLength(2);
@@ -56,6 +104,19 @@ class MarkdownProcessor
         $syllable->setLanguage('en-us');
 
         return $syllable->hyphenateHtmlText($html);
+
+    }
+
+    protected  function preventShortWordOrphans(string $text, int $maxLength = 2): string {
+        // Регулярка ищет слова длиной <= maxLength перед пробелом или переносом строки
+        // \b — граница слова, \w{1,maxLength} — слово длиной 1 до maxLength букв
+        // \s+ — пробелы после слова
+        $pattern = '/\b(\w{1,' . $maxLength . '})\s+/u';
+
+        // Заменяем пробелы на неразрывный пробел
+        $replacement = '$1&nbsp;';
+
+        return preg_replace($pattern, $replacement, $text);
     }
 
     protected function wrapHeadersWithParagraphs(string $html): string

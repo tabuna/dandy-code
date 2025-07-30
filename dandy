@@ -15,6 +15,6 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
 $app = new Application('Dendy', 'beta');
 
 
-$app->add(new \Dendy\Book\BuildCommand());
+$app->add(new \Dandy\Book\BuildCommand());
 
 $app->run();

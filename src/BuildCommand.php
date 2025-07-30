@@ -52,6 +52,8 @@ class BuildCommand extends Command
 
         $pdf = (new Book($config))
             ->withCover($this->cover($currentPath, $config))
+            ->withCover($this->cover($currentPath, $config, 'cover-back'))
+            ->withColophon(file_get_contents($currentPath .'/assets/colophon.html'))
             ->withTheme($theme)
             ->withTitle($config['title'])
             ->withAuthor($config['author'])
@@ -113,25 +115,29 @@ class BuildCommand extends Command
      *
      * @return string
      */
-    protected function cover(string $currentPath, array $config): string
+    protected function cover(string $currentPath, array $config, string $filename = 'cover'): string
     {
-        if ($this->disk->isFile($currentPath.'/assets/cover.jpg')) {
+        $jpgPath = $currentPath . '/assets/' . $filename . '.jpg';
+        $htmlPath = $currentPath . '/assets/' . $filename . '.html';
+
+        if ($this->disk->isFile($jpgPath)) {
             $coverPosition = $config['cover']['position'] ?? 'position: absolute; left:0; right: 0; top: -.2; bottom: 0;';
             $coverDimensions = $config['cover']['dimensions'] ?? 'width: 148mm; height: 210mm; margin: 0;';
 
             return <<<HTML
 <div style="{$coverPosition}">
-    <img src="assets/cover.jpg" style="{$coverDimensions}"/>
+    <img src="assets/{$filename}.jpg" style="{$coverDimensions}"/>
 </div>
 HTML;
         }
 
-        if ($this->disk->isFile($currentPath.'/assets/cover.html')) {
-            return $this->disk->get($currentPath.'/assets/cover.html');
+        if ($this->disk->isFile($htmlPath)) {
+            return $this->disk->get($htmlPath);
         }
 
         return '';
     }
+
 
     /**
      * @param        $currentPath

@@ -27,6 +27,7 @@ class Book
         $this->pdf = new Mpdf(
             array_merge($this->defaultConfig(), $config['document'] ?? [])
         );
+        $this->pdf->debug = true;
 
         $this->initializePdf();
     }
@@ -73,6 +74,16 @@ class Book
     }
 
     /**
+     * Apply theme HTML
+     */
+    public function withColophon(string $html): static
+    {
+        $this->pdf->WriteHTML($html);
+
+        return $this;
+    }
+
+    /**
      * Add cover page
      */
     public function withCover(string $coverHtml): static
@@ -90,7 +101,6 @@ class Book
      */
     public function chapter(string $chapterHtml, bool $break = true): static
     {
-
         $title = $this->extractTitle($chapterHtml);
 
         if ($title) {

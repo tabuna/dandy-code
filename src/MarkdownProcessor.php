@@ -30,9 +30,9 @@ class MarkdownProcessor
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new TaskListExtension());
 
-        //$environment->addExtension(new PhikiExtension(Theme::GithubLight));
+        // $environment->addExtension(new PhikiExtension(Theme::GithubLight));
 
-        $highlighter = new Highlighter(new InlineTheme(__DIR__ . '/../assets/hightlight.css'));
+        $highlighter = new Highlighter(new InlineTheme(__DIR__.'/../assets/hightlight.css'));
         $environment->addExtension(new HighlightExtension($highlighter));
 
         /*
@@ -62,8 +62,7 @@ class MarkdownProcessor
             'Trademark',
         ]);
 
-        $fixer->setLocale("ru");
-
+        $fixer->setLocale('ru');
 
         $crawler = new Crawler($html);
 
@@ -81,10 +80,9 @@ class MarkdownProcessor
                 $html = $t->apply($html);
             });
 
-
         $crawler
             ->filter('p,li')
-            ->each(function (Crawler $elm) use ($fixer, &$html) {
+            ->each(function (Crawler $elm) use (&$html) {
 
                 $content = $elm->html();
 
@@ -92,8 +90,6 @@ class MarkdownProcessor
 
                 $html = Str::of($html)->replace($content, $paragraph);
             });
-
-
 
         $syllable = new Syllable('ru');
         $syllable->setCache(null);
@@ -107,11 +103,12 @@ class MarkdownProcessor
 
     }
 
-    protected  function preventShortWordOrphans(string $text, int $maxLength = 2): string {
+    protected function preventShortWordOrphans(string $text, int $maxLength = 2): string
+    {
         // Регулярка ищет слова длиной <= maxLength перед пробелом или переносом строки
         // \b — граница слова, \w{1,maxLength} — слово длиной 1 до maxLength букв
         // \s+ — пробелы после слова
-        $pattern = '/\b(\w{1,' . $maxLength . '})\s+/u';
+        $pattern = '/\b(\w{1,'.$maxLength.'})\s+/u';
 
         // Заменяем пробелы на неразрывный пробел
         $replacement = '$1&nbsp;';

@@ -53,7 +53,7 @@ class BuildCommand extends Command
         $pdf = (new Book($config))
             ->withCover($this->cover($currentPath, $config))
             ->withCover($this->cover($currentPath, $config, 'cover-back'))
-            ->withColophon(file_get_contents($currentPath .'/assets/colophon.html'))
+            ->withColophon(file_get_contents($currentPath.'/assets/colophon.html'))
             ->withTheme($theme)
             ->withTitle($config['title'])
             ->withAuthor($config['author'])
@@ -80,11 +80,19 @@ class BuildCommand extends Command
 
         $output->writeln('<fg=yellow>==></> Writing PDF To Disk ...');
         $output->writeln('');
+
         $output->writeln('✨✨ '.$pdf->getPageCount().' PDF pages ✨✨');
 
-        $pdf->Output(
-            sprintf('%s/export/%s.pdf', $currentPath, $config['title'])
-        );
+        $pdfFilePath = sprintf('%s/export/%s.pdf', $currentPath, $config['title']);
+        $pdf->Output($pdfFilePath);
+
+        // Создаем кликабельную ссылку для поддерживающих терминалов
+        $output->writeln('✨✨ '.$pdf->getPageCount().' PDF pages ✨✨');
+        $output->writeln(sprintf(
+            '<href=file://%s>📄 Click to open: %s</>',
+            $pdfFilePath,
+            $pdfFilePath
+        ));
 
         $output->writeln('<info>Book Built Successfully!</info>');
 
@@ -117,8 +125,8 @@ class BuildCommand extends Command
      */
     protected function cover(string $currentPath, array $config, string $filename = 'cover'): string
     {
-        $jpgPath = $currentPath . '/assets/' . $filename . '.jpg';
-        $htmlPath = $currentPath . '/assets/' . $filename . '.html';
+        $jpgPath = $currentPath.'/assets/'.$filename.'.jpg';
+        $htmlPath = $currentPath.'/assets/'.$filename.'.html';
 
         if ($this->disk->isFile($jpgPath)) {
             $coverPosition = $config['cover']['position'] ?? 'position: absolute; left:0; right: 0; top: -.2; bottom: 0;';
@@ -137,7 +145,6 @@ HTML;
 
         return '';
     }
-
 
     /**
      * @param        $currentPath

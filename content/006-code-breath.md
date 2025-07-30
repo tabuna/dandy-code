@@ -17,10 +17,10 @@
 ```php
 // Плохо ❌
 $user = $request->user();
-$project = Project::find($id);
-$project->assign($user);
-$project->save();
-return $project;
+$zone = ClimateZone::find($id);
+$zone->assign($user);
+$zone->save();
+return $zone;
 ```
 
 Плотность текста не даёт глазу сделать паузу и понять, где что происходит. 
@@ -32,16 +32,16 @@ return $project;
 // Хорошо ✅
 $user = $request->user();
 
-$project = Project::find($id);
-$project->assign($user);
-$project->save();
+$zone = ClimateZone::find($id);
+$zone->assign($user);
+$zone->save();
 
-return $project;
+return $zone;
 ```
 
 Такой код «дышит»:
 - первый блок — получение пользователя;
-- второй блок — работа с проектом;
+- второй блок — работа с климатической зоной;
 - третий блок — возврат результата.
 
 

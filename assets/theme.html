@@ -1,366 +1,364 @@
 <header>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/github-gist.min.css">
-  <style>
-      body {
-          /* Базовые параметры шрифта */
-          font-family: "EB Garamond", Georgia, Calibri, sans-serif;
-          /*font-size: 10.4pt;*/
-          font-size: 10.5pt;                         /* кегль текста */
-          line-height: 1.35;                          /* межстрочный интервал */
-          color: #222;
-          hyphens: auto;                             /* переносы */
-          widows: 2;                                 /* минимум 2 строки на новой странице */
-          orphans: 2;
-          margin: 0;
-          padding: 0;
-      }
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
+    <style>
+        body {
+            font-family: "EB Garamond", Georgia, Calibri, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.35;
+            color: #000;
+            hyphens: auto;
+            widows: 2;
+            orphans: 2;
+            margin: 0;
+            padding: 0;
+            text-justify: inter-word;
+        }
 
+        h1, h2, h3, h4, h5, h6 {
+            page-break-before: avoid;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+            word-break: keep-all;
+            hyphens: none;
+            white-space: normal;
+        }
 
-      h1, h2, h3, h4, h5, h6 {
-          page-break-before: avoid;
-          page-break-after: avoid;
-          page-break-inside: avoid;
+        h1, h2 {
+            text-wrap: balance;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            text-align: left;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+        }
 
-          word-break: keep-all;
-          hyphens: none;
-          white-space: normal;
-      }
+        h1 {
+            font-size: 2.5rem;
+            padding-bottom: 20ch;
+            max-width: 60%;
+            text-wrap: balance;
+            position: relative;
+        }
 
-      /* Общие настройки для H1 и H2 */
-      h1, h2 {
-          /* Классический засечковый шрифт для заголовков */
-          font-family: "Times New Roman", Times, serif;
-          /* В большинстве браузеров text-wrap: balance пока экспериментальная,
-             можно оставить или убрать в зависимости от поддержки */
-          text-wrap: balance;
-          /* Отступы сверху/снизу лучше задавать через margin, а не padding */
-          margin-top: 0;
-          margin-bottom: 0.5em;
-          /* Не выравниваем по ширине – заголовок всё же короткий текст */
-          text-align: left;
+        .diamond {
+            display: block;
+            font-size: 18pt;
+            color: #666;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+            letter-spacing: -0.02em;
+        }
 
-          page-break-after: avoid;
-          orphans: 2;
-          widows: 2;
-      }
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            page-break-after: avoid;
+            page-break-before: always;
+        }
 
-      /* H1 — название главы */
-      h1 {
-          font-size: 2.5rem;         /* ≈35px при стандартном root-size 16px */
-          /* Начало новой главы с новой страницы (для печати и PDF) */
-          /* page-break-before: always; */
+        h3 {
+            font-weight: bold;
+            font-size: 1.1875rem;
+            text-align: left;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
 
-          /* Пространство перед заголовком (чтобы оторвать от предшествующего текста-подписи) */
+        h3:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            background-color: #D14444;
+        }
 
-          padding-bottom: 20ch;
-          max-width: 60%;
-          text-wrap: balance;
-          position: relative;
-      }
+        a {
+            color: blue;
+            text-decoration: underline;
+        }
 
+        p {
+            text-indent: 1.2em;
+            margin-bottom: 0.9em;
+        }
 
-      .diamond {
-        display: block;
-        font-size: 18pt;
-        color: #666;
-        margin-bottom: 10px;
-        font-family: sans-serif;
-        letter-spacing: -0.02em;
-      }
+        p,
+        ul,
+        ol {
+            page-break-inside: avoid;
+            hyphens: manual;
+            hyphenate-limit-chars: 6;
+            widows: 2;
+            orphans: 2;
+            text-align: justify;
+            overflow-wrap: break-word;
+            text-justify: inter-word;
+            text-wrap: balance;
+            margin-bottom: 20px;
+        }
 
-      /* H2 — заголовок раздела внутри главы */
-      h2 {
-          font-size: 1.25rem;        /* ≈20px */
-          margin-top: 2rem;
-          margin-bottom: 1.5rem;
+        pre {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            background-color: #fafafa;
+            padding: 12pt 15pt;
+            margin-bottom: 10mm;
+            overflow-x: auto;
+            border-radius: 4pt;
+            font-family: "JetBrains Mono", Consolas, Monaco, 'Courier New', monospace;
+            font-size: 8pt;
+            line-height: 1.5;
+        }
 
-          page-break-after: avoid;
-          page-break-before: always;
-      }
+        pre code {
+            background: none;
+            font-size: 8pt;
+            line-height: 1.5;
+            color: #2d2d2d;
+            text-align: left;
+            font-family: "JetBrains Mono", Consolas, Monaco, 'Courier New', monospace;
+            letter-spacing: 0.02em;
+            word-break: normal;
+            overflow-wrap: normal;
+            white-space: nowrap;
+        }
 
-      /* H3 — подзаголовок, акцент внутри раздела */
-      h3 {
-          font-family: Calibri, sans-serif;
-          font-weight: bold;
-          font-size: 1.1875rem;
-          text-align: left;
-          margin-top: 1.5rem;
-          margin-bottom: 1rem;
+        code {
+            color: #A5215D;
+            background-color: #faf7f7;
+            border-radius: .2rem;
+            padding: .12rem .2rem;
+            font-size: 100%;
+            display: inline;
+            word-break: normal;
+            overflow-wrap: normal;
+            white-space: nowrap;
+        }
 
-          /*
-          background: #000;
-          color: #fff;
-          padding: 10px 15px;
-           */
-          padding-left: 1.5rem;
-          position: relative;
-      }
+        .mpdf_toc {
+            font-family: calibri;
+            color: #252525;
+        }
 
-      h3:before{
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 1rem;
-          height: 1rem;
-          background-color: red;
-      }
+        div.mpdf_toc_level_0 {
+            line-height: 36px;
+        }
 
+        div.mpdf_toc_level_1,
+        div.mpdf_toc_level_2 {
+            line-height: 30px;
+        }
 
-      a {
-          color: blue;           /* Цвет ссылок */
-          text-decoration: underline;    /* Убираем подчеркивание */
-      }
+        span.mpdf_toc_t_level_0,
+        span.mpdf_toc_p_level_0 {
+            color: #252525;
+            font-family: calibri;
+            font-weight: bold;
+            font-style: normal;
+        }
 
-      /* Абзац */
-      p {
-          text-indent: 1.2em;      /* Отступ первой строки абзаца */
-          margin-bottom: 0.9em;
-      }
+        span.mpdf_toc_t_level_1,
+        span.mpdf_toc_p_level_1,
+        span.mpdf_toc_t_level_2,
+        span.mpdf_toc_p_level_2 {
+            color: #252525;
+            font-family: calibri;
+            font-weight: normal;
+            font-style: normal;
+        }
 
-      /* Отступ после абзацев и списков */
-      p,
-      ul,
-      ol {
-          page-break-inside: avoid;
+        #toc-title {
+            font-weight: bold;
+            font-size: 40px;
+            padding-top: 0;
+            padding-bottom: 10px;
+            text-align: center;
+            color: #9B2E2E;
+            border-bottom: 2px solid #9B2E2E;
+        }
 
+        blockquote {
+            border-left: 4px solid #bc3b3b;
+            margin-top: 0;
+            margin-right: 0;
+            margin-bottom: 30px;
+            margin-left: 0;
+            page-break-inside: avoid;
+            background: #f5f2ef;
+            padding: 20px;
+            font-style: italic;
+        }
 
-      hyphens: auto;
-      hyphenate-limit-chars: 6 3 2;
+        blockquote p {
+            margin-top: 0;
+            margin-bottom: 0;
+            text-indent: 0;
+        }
 
-      /* Правила для предотвращения «висячих» строк */
-      widows: 2;
-      orphans: 2;
+        blockquote.quote p:last-of-type::after {
+            content: "”";
+            font-size: 2em;
+            line-height: 0;
+            vertical-align: -0.3em;
+            color: #aaa;
+            margin-left: 0.05em;
+        }
 
-          text-align: justify;
-          overflow-wrap: break-word;
-          text-wrap: balance;
-          margin-bottom: 20px;   /* Расстояние вниз между блоками текста */
-      }
+        blockquote.notice {
+            background-color: #f0f5ff;
+            border-left: solid 5px #5b87dd;
+            padding: 20px;
+        }
 
-      /*
-      pre {
-          line-height: 18px;
-          page-break-inside: avoid;
-          background-color: #fafafa;
-          padding-top: 15px;
-          padding-bottom: 15px;
-          padding-left: 15px;
-          margin-bottom: 30px;
-      }
+        blockquote.notice strong {
+            color: #255ac0;
+        }
 
-      pre code {
-          background: none;
-          font-size: 8pt;
-          line-height: 1.4;
-          color: #2d2d2d;
-          text-align: left;
-      }
-       */
+        blockquote.warning {
+            background-color: #ffeced;
+            border-left: solid 5px #dd787d;
+            padding: 20px;
+        }
 
-      pre {
-          page-break-inside: avoid;
-          break-inside: avoid;       /* для современных браузеров и движков */
-          background-color: #fafafa;
-          padding: 12pt 15pt;            /* внутренние отступы в pt для типографической согласованности */
-          margin-bottom: 10mm;           /* разделение с другими блоками — в мм для точности в печати */
-          overflow-x: auto;              /* скролл при длинных строках */
-          border-radius: 4pt;            /* лёгкие скругления */
-          font-family: Consolas, Monaco, 'Courier New', monospace; /* моноширинный */
-          font-size: 8pt;
-          line-height: 1.5;              /* оптимальный межстрочный интервал */
-      }
+        blockquote.warning strong {
+            color: #c0262b;
+        }
 
-      pre code {
-          background: none;
-          font-size: 8pt;
-          line-height: 1.5;
-          color: #2d2d2d;
-          text-align: left;
-          white-space: pre-wrap;         /* перенос строк, чтобы не выходили за границы */
-          word-break: break-word;        /* аккуратный перенос длинных слов */
-          letter-spacing: 0.02em;        /* чуть увеличенный межбуквенный интервал для читаемости */
-      }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-      code {
-          /*font-size: 14px;*/
-          color: #A5215D;
-          background-color: #faf7f7;
-          border-radius: .2rem;
-          padding: .1rem .2rem;
-          //font-size: 9.5pt;
-          font-size: 100%;
-          display: inline;
-      }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    .mpdf_toc {
-      font-family: calibri;
-      color: #252525;
-    }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #525252;
+            color: white;
+        }
 
-    div.mpdf_toc_level_0 {
-      line-height: 36px;
-    }
+        .chapter-padding {
+            padding-top: 10rem;
+        }
 
-    div.mpdf_toc_level_1 {
-      line-height: 30px;
-    }
+        .chapter-table {
+            border: none;
+            border-radius: 10mm;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    div.mpdf_toc_level_2 {
-      line-height: 30px;
-    }
+        .chapter-row {
+            border: none;
+            border-radius: 10mm;
+        }
 
-    span.mpdf_toc_t_level_0, span.mpdf_toc_p_level_0 {
-      color: #252525;
-      font-family: calibri;
-      font-weight: bold;
-      font-style: normal;
-    }
+        .chapter-icon-cell {
+            background-color: #c62828;
+            width: 80px;
+            height: 80px;
+            border-radius: 10mm;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 10mm;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: -0.5mm;
+        }
 
-    span.mpdf_toc_t_level_1, span.mpdf_toc_p_level_1 {
-      color: #252525;
-      font-family: calibri;
-      font-weight: normal;
-      font-style: normal;
-    }
+        .chapter-cell {
+            border: none;
+        }
 
-    span.mpdf_toc_t_level_2, span.mpdf_toc_p_level_2 {
-      color: #252525;
-      font-family: calibri;
-      font-weight: normal;
-      font-style: normal;
-    }
+        h3 + p {
+            page-break-inside: avoid;
+        }
 
-    #toc-title {
-      font-weight: bold;
-      font-size: 40px;
-      padding-top: 0;
-      padding-bottom: 10px;
-      text-align: center;
-      color: #c62828;
-      border-bottom: 2px solid #c62828;
-    }
+        .quote-icon {
+            display: block;
+            font-size: 16pt;
+            color: red;
+        }
 
-    blockquote {
-      margin-top: 0;
-      margin-right: 0;
-      margin-bottom: 30px;
-      margin-left: 0;
-      page-break-inside: avoid;
+        p:has(+ pre) {
+            break-after: avoid;
+            page-break-after: avoid;
+        }
 
+        .pre {
+            position: relative;
+        }
 
-        background: #f5f2ef;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        font-style: italic;
-    }
+        .good {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 24 24'%3E%3Cpath d='M12 0L24 24H0z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
 
-    blockquote p {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
+        pre.bad::before {
+            content: "⚠️ Bad Practice";
+            display: block;
+            font-weight: bold;
+            color: #721c24;
+        }
 
-    blockquote.quote {
-      padding-top: 20px;
-      padding-bottom: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
-      font-style: italic;
-    }
+        [keep_block_together] {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
 
-    blockquote.notice {
-      background-color: #f0f5ff;
-      border-left: solid 5px #5b87dd;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+        .hl-addition {
+            display: inline-block;
+            min-width: 100%;
+            background-color: #d4fdd4;
+        }
 
-    blockquote.notice strong {
-      color: #255ac0;
-    }
+        .hl-deletion {
+            display: inline-block;
+            min-width: 100%;
+            background-color: #fdd4d4;
+        }
 
-    blockquote.warning {
-      background-color: #ffeced;
-      border-left: solid 5px #dd787d;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+        .w-50 {
+            display: block;
+            width: 48%;
+            float: left;
+            padding: 0.5%;
+        }
 
-    blockquote.warning strong {
-      color: #c0262b;
-    }
+        .todo ul, .todo li {
+            list-style: none;
+            text-indent: 0;
+            padding-left: 1.2em;
+            margin-left: 0;
+            widows: 0;
+            orphans: 0;
+        }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td, th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: #f2f2f2;}
-
-    th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #525252;
-      color: white;
-    }
-
-    .chapter-padding {
-      padding-top: 10rem;
-    }
-
-      .chapter-table {
-        border: none;
-        border-radius: 10mm;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-
-      .chapter-row {
-        border: none;
-        border-radius: 10mm;
-      }
-
-      .chapter-icon-cell {
-        background-color: #c62828;
-        width: 80px;
-        height: 80px;
-        border-radius: 10mm;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 10mm;
-        font-weight: bold;
-        color: #fff;
-        letter-spacing: -0.5mm;
-      }
-
-      .chapter-cell {
-        border: none;
-      }
-
-      h3 + p {
-        page-break-inside: avoid;
-      }
-  </style>
-
-
-
+    </style>
 </header>
-
-
 
 <tocpagebreak links="on"
               toc-suppress="on"
@@ -368,7 +366,6 @@
               toc-bookmarkText="Contents"
               toc-odd-header-value="-1"
               toc-even-header-value="-1"
-
               toc-odd-footer-value="-1"
               toc-even-footer-value="-1"
 >

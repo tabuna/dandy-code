@@ -69,8 +69,8 @@ class Order extends Controller
 > The name of a method's receiver should
 > be a reflection of its identity; often a one
 > or two letter abbreviation of its type
-> suffices (such as c for cl or s for
-> Server). Don't use generic names such
+> suffices (such as "c" or "cl" for "Client").
+> Don't use generic names such
 > as me, this, or self.
 
 Сокращения могут быть как однобуквенными, так и более длинными или смешанными, например итерация цикла как `$i`, запрос как `q`, интерфейс как `IComponent`.

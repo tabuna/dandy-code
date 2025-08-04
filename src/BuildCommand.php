@@ -5,6 +5,7 @@ namespace Dandy\Book;
 use Illuminate\Filesystem\Filesystem;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -59,13 +60,14 @@ class BuildCommand extends Command
             ->withAuthor($config['author'])
             ->setFooter('<div id="footer" style="text-align: center">{PAGENO}</div>');
 
-        $output->writeln('<fg=yellow>==></> Building PDF page by page ...');
-
         $files = collect($this->disk->files($currentPath.'/content'))
             ->filter(fn (SplFileInfo $file) => $file->getExtension() === 'md')
             ->values();
 
         $processor = new MarkdownProcessor();
+
+        $progressBar = new ProgressBar($output, $files->count());
+        $progressBar->start();
 
         foreach ($files as $index => $file) {
 
@@ -76,20 +78,23 @@ class BuildCommand extends Command
 
             // Добавляем страницу, кроме последней
             $pdf->chapter($html, $index < $files->count() - 1);
+
+            $progressBar->advance();
         }
 
-        $output->writeln('<fg=yellow>==></> Writing PDF To Disk ...');
-        $output->writeln('');
-
-        $output->writeln('✨✨ '.$pdf->getPageCount().' PDF pages ✨✨');
+        $progressBar->finish();
 
         $pdfFilePath = sprintf('%s/export/%s.pdf', $currentPath, $config['title']);
         $pdf->Output($pdfFilePath);
 
+        $output->writeln('');
+        $output->writeln(
+            sprintf('<fg=yellow>==></> Writing %s PDF Pages To Disk ...', $pdf->getPageCount())
+        );
+
         // Создаем кликабельную ссылку для поддерживающих терминалов
-        $output->writeln('✨✨ '.$pdf->getPageCount().' PDF pages ✨✨');
         $output->writeln(sprintf(
-            '<href=file://%s>📄 Click to open: %s</>',
+            ' <href=file://%s>📄 Click to open: %s</>',
             $pdfFilePath,
             $pdfFilePath
         ));

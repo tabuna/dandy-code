@@ -2,6 +2,7 @@
 
 namespace Dandy\Book;
 
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
@@ -78,7 +79,12 @@ class Book
      */
     public function withColophon(string $html): static
     {
-        $this->pdf->WriteHTML($html);
+        $this->pdf->WriteHTML(
+            Str::of($html)
+                ->replace('[commit]', self::getCurrentGitCommitHash())
+                ->replace('[year]', Date::now()->format('Y'))
+                ->toString()
+        );
 
         return $this;
     }
@@ -226,5 +232,24 @@ class Book
     {
         // $this->pdf->AddPage();
         $this->pdf->WriteHTML('<div style="page-break-after: always;"></div>');
+    }
+
+    /**
+     * Attempt to retrieve the current Git commit hash in PHP.
+     * Note: This method assumes the project is using Git for version control.
+     *
+     * @return string|null
+     */
+    public static function getCurrentGitCommitHash(): ?string
+    {
+        $gitPath = '.git/';
+
+        if (! file_exists($gitPath)) {
+            return null;
+        }
+
+        $head = trim(substr(file_get_contents($gitPath.'HEAD'), 4));
+
+        return Str::of(file_get_contents($gitPath.$head))->trim()->limit(7, '');
     }
 }

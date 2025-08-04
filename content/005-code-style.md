@@ -20,7 +20,7 @@
 Рассмотрим небольшой фрагмент кода:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class  BlipController extends Controller {
   public  function index (){
         $blips=Blip::with('user')->latest()->get() ;
@@ -99,7 +99,7 @@ extends Controller {
 Потому что уже есть множество инструментов автоматизации, например `Laravel Pint` или `PHP-CS-Fixer`, которые будут автоматически исправлять код:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class BlipController extends Controller
 {
     public function index()

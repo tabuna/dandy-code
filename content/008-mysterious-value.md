@@ -7,7 +7,7 @@
 Рассмотрим классическую ситуацию:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($status == 1) {
     // ...
 }
@@ -28,7 +28,7 @@ if ($status == 1) {
 А если значение гораздо больше, например:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($status == 24) {
     // ...
 }
@@ -39,7 +39,7 @@ if ($status == 24) {
 Загадочными могут быть не только числа. Иногда код может притаить за собой набор символов:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($char === '%!') {
     // ...
 }
@@ -48,7 +48,7 @@ if ($char === '%!') {
 Что значит `%!`? Если значение несёт смысл, пусть оно громко заявляет о себе именем. Тогда станет ясно, зачем он здесь и как его использовать дальше с помощью константы:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 const STATUS_ACTIVE = 1;
 
 if ($status === STATUS_ACTIVE) {
@@ -62,7 +62,7 @@ if ($status === STATUS_ACTIVE) {
 Можно пойти дальше ещё дальше и использовать перечисления для явного определения различных значений:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 enum Status: string
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
@@ -77,7 +77,7 @@ if ($status === Status::ACTIVE) {
 ```
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 enum Status: int
     case ACTIVE = 1;
     case INACTIVE = 2;
@@ -111,7 +111,7 @@ function canBePublished(Status $status): bool
 Рассмотрим реальный пример:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class Order
 {
     // ...
@@ -130,7 +130,7 @@ class Order
 
 После слепого ввода констант пример начинает выглядеть так:
 ```php
-// Плохо ❌
+// Плохо [✗]
 class Order
 {
     private const MICROSECONDS_IN_SECOND = 1_000_000;
@@ -155,7 +155,7 @@ class Order
 Например, `Carbon`:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 use Carbon\Carbon;
 
 class Order
@@ -173,7 +173,7 @@ class Order
 Еще лучше, будет если наши свойства будут не примитивные данные, а сразу объекты, тогда:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class Order
 {
     public function daysSinceLastUpdate(): float
@@ -186,7 +186,7 @@ class Order
 Если кажется, что время слишком простой пример, то вот похожий с размером файла:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class File
 {
     public function humanReadableSize(): string
@@ -201,7 +201,7 @@ class File
 Для которого добавили константы:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class File
 {
     private const SHORT_MEGABYTE = 'MB';
@@ -228,7 +228,7 @@ class File
 
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 use DataSize;
 
 class File

@@ -85,17 +85,17 @@ class Order extends Controller
 Давайте рассмотрим следующий пример:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $usr = User::find($id);
 
-// Хорошо ✅
+// Хорошо [✓]
 $user = User::find($id);
 ```
 
 Здесь переменная `$usr` представляет объект пользователя. Однако, сокращённое имя `$usr` не даёт понимания того, что именно хранится в этой переменной.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class UsrCtrl extends Ctrl {
     public function f() {
         // ...
@@ -106,7 +106,7 @@ class UsrCtrl extends Ctrl {
 В данном примере имя класса `UsrCtrl` не информативно. Разработчику, сталкивающемуся с этим классом впервые, будет трудно понять его назначение. Название класса должно чётко отражать его функциональность, например, `ProfileController`.
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class ProfileController extends Controller
 {
     public function show()
@@ -177,7 +177,7 @@ abstract class AbstractContextHandler
 Предыдущий пример лишен конкретики, но она может отсутствовать и в именах переменных вроде таких:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $data;
 $var;
 $info;
@@ -196,7 +196,7 @@ $item;
 Но это совершенно не информативно для масштабных объектов, например:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $user->run();
 $user->handleData();
 $user->process()
@@ -205,7 +205,7 @@ $user->process()
 Старайтесь использовать информативные имена, которые отражают суть того, что они представляют, например:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $user->posts();
 $user->notify(...);
 $user->deactivate();
@@ -217,7 +217,7 @@ $user->deactivate();
 Методы и переменные которые содержат `bool` значение, лучше всего именовать с префиксом `is/has/should`
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $isAdmin
 $hasAccess
 $shouldRetry
@@ -229,7 +229,7 @@ $shouldRetry
 Рассмотрим пример именования переменных с указанием единиц измерения температуры:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $temperature = 98.6;
 ```
 
@@ -245,11 +245,11 @@ $temperature = 37;
 Чтобы избежать путаницы, можно явно указывать единицы измерения:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 // Мы явно указываем, что это температура в фаренгейтах
 $temperatureInFahrenheit = 98.6;
 
-// Хорошо ✅
+// Хорошо [✓]
 // Или в градусах Цельсия
 $temperatureInCelsius = 37;
 ```
@@ -281,7 +281,7 @@ class Temperature
 Использование класса `Temperature` поясняет, что ожидается:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $temperature = Temperature::fromFahrenheit(98.6); // 37.0°C
 $temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 ```
@@ -298,7 +298,7 @@ $temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 Рассмотрим пример:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class PostItemCollection
 {
     public function addPost(Post $post)
@@ -325,7 +325,7 @@ class PostItemCollection
 Поэтому лучше упростить:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class PostCollection
 {
     public function add(Post $post)
@@ -370,13 +370,13 @@ class PostCollection
 Эти имена — дымовая завеса. Они скрывают детали, замыливают смысл, делают код нечитаемым, а архитектуру — расплывчатой. Они подменяют суть интерфейсом, упрощая названия до абсурда. Да, это удобно. Да, так делают все. Но именно поэтому ваш проект через год превращается в груду мусора.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 class ReportManager { /* … */ }
 class StringFormatter { /* … */ }
 ```
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class StringTruncatedToLength { /* … */ }
 ```
 
@@ -390,7 +390,7 @@ class StringTruncatedToLength { /* … */ }
 Рассмотрим пример, где имена не согласованы:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $object->startProcess();
 $object->completeTask();
 ```
@@ -402,7 +402,7 @@ $object->completeTask();
 Гораздо эффективнее, когда методы звучат как пара, поддерживают одну мысль и логически соответствуют друг другу:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $object->startProcess();
 $object->finishProcess();
 ```
@@ -421,7 +421,7 @@ $object->completeTask();
 Например:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $task->begin();
 $task->complete();
 

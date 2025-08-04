@@ -34,7 +34,7 @@
 Только на деле — это мусор, который мы сами оставили.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function generateAccessToken(): string
 {
     $userId = $this->user->getKey(),
@@ -76,7 +76,7 @@ public function generateAccessToken(): string
 Нет, это не нормально. Вот как должно быть:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 public function generateAccessToken(): string
 {
     return $this->signToken([

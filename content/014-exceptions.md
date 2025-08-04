@@ -29,7 +29,7 @@
 Пустой catch или молчаливое подавление ошибок:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 try {
     $this->calculate($data);
 } catch (\Throwable $throwable) {
@@ -42,7 +42,7 @@ try {
 
 В некоторых случаях, чтобы избежать падения приложения, можно вернуть резервный результат:
 ```php
-// Плохо ❌
+// Плохо [✗]
 try {
     $message = $this->greeting($time);
 } catch (ExternalApiException $exception) {
@@ -53,7 +53,7 @@ try {
 Иногда ошибку можно безопасно обработать без прерывания выполнения, но её обязательно нужно залогировать для последующего анализа:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 try {
     $message = $this->greeting($time);
 } catch (ExternalApiException $exception) {
@@ -73,7 +73,7 @@ try {
 
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 foreach ($users => $user) {
    if($user->isActive()){
        throw new Exception(
@@ -106,7 +106,7 @@ foreach ($users as $user) {
 Посмотрите на пример:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 try {
     throw new RuntimeException("...");
 } catch (Throwable $e) {
@@ -178,7 +178,7 @@ function logException(Throwable $e): void
 Представим, что система должна вернуть рекомендацию пользователю — выходить ли на улицу:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 function shouldGoOutside(array $weather): bool
 {
     return ! (function () use (&$weather, $check) {
@@ -254,7 +254,7 @@ $engine->shouldGoOutside([
 ]);
 ```
 
-а если нужно, что-то проверить, то мы можем легко добавить тест:
+А если нужно, что-то проверить, то мы можем легко добавить тест:
 
 ```php
 $rule = new WindRule();

@@ -15,7 +15,7 @@
 Пример глубокой вложенности:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if($condition) {                 // уровень 1
     foreach($users as $user) {   // уровень 2
         if($user->isActive()) {  // уровень 3
@@ -33,7 +33,7 @@ if($condition) {                 // уровень 1
 вложенных условий.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($condition) {
     // много кода
 } else {
@@ -57,7 +57,7 @@ if (! $condition) {
 Ранний выход актуален не только для исключений, но и для возвращений значений в методах, например:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function hasAssign(User $user): bool
 {
     if ($condition) {
@@ -71,7 +71,7 @@ public function hasAssign(User $user): bool
 Основной сценарий спрятан внутри условия. Лучше развернуть его наружу:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 public function hasAssign(User $user): bool
 {
     if (! $condition) {
@@ -90,7 +90,7 @@ public function hasAssign(User $user): bool
 Ранний выход полезен не только для условий, но и для циклов:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 foreach ($orders as $order) {
     if ($order->isPaid()) {
         foreach ($order->items as $item) {
@@ -105,7 +105,7 @@ foreach ($orders as $order) {
 Можно переписать, используя `continue` для раннего выхода из итерации:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 foreach ($orders as $order) {
     if (! $order->isPaid()) {
         continue;
@@ -130,7 +130,7 @@ foreach ($orders as $order) {
 Рассмотрим пример метода, который проверяет, имеет ли пользователь доступ:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function hasAccess(User $user): bool {
     if (!$user->isBanned()) {
         if ($user->isAdmin()) {
@@ -157,7 +157,7 @@ public function hasAccess(User $user): bool {
 Вариант без `else` — чище и проще:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 public function hasAccess(User $user): bool
 {
     if ($user->isBanned()) {

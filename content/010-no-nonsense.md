@@ -13,7 +13,7 @@
 Если переменная не улучшает читаемость и не нужна для повторного использования, от неё стоит отказаться.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $tmp = $user->name;
 echo $tmp;
 ```
@@ -22,7 +22,7 @@ echo $tmp;
 которое нужно запомнить.
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 echo $user->name;
 ```
 
@@ -35,7 +35,7 @@ echo $user->name;
 Это снижает предсказуемость и усложняет отладку.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 function (array $user) {
     $user = new User($user);  // Был массив, стал объект
 }
@@ -44,7 +44,7 @@ function (array $user) {
 Но если оказались в такой ситуации, намного лучше будет уточнить и дать другое имя:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 function (array $userData) {
     $user = new User($userData);
 }
@@ -53,7 +53,7 @@ function (array $userData) {
 Лучше всего сразу работать с объектами и при необходимости — извлекать из них нужные данные, например, преобразовывать в массив:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 function (User $user) {
    // ...
 }
@@ -62,7 +62,7 @@ function (User $user) {
 Особенно часто такое изменение можно заметить с переменными `$value`, `$item` и `$result` когда конечный результат меняется:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 $value = [1, 2, 3];         // массив
 $value = (object) $value;   // теперь объект
 $value = json_encode($value); // теперь строка
@@ -75,7 +75,7 @@ $value = json_encode($value); // теперь строка
 Это особенно важно внутри циклов и условий: лишний вызов метода или обращение к внешнему ресурсу может стоить дорого.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 foreach ($users as $user) {
     $moon = MoonPhase::forToday();
     
@@ -88,7 +88,7 @@ foreach ($users as $user) {
 
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 foreach ($users as $user) {
     $moon ??= MoonPhase::forToday();
 
@@ -102,7 +102,7 @@ foreach ($users as $user) {
 Чтобы избежать недопониманий, лучше сделать намерение явным:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $moon = MoonPhase::forToday();
 
 foreach ($users as $user) {
@@ -120,7 +120,7 @@ foreach ($users as $user) {
 Но затем в коде начинают появляться конструкции вроде:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if (isset($user['address']['city'])) {
     $city = $user['address']['city'];
 } else {
@@ -134,7 +134,7 @@ if (isset($user['address']['city'])) {
 Чтобы получить ещё одно значение, снова и снова приходится писать `isset` с длинной цепочкой:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if (
     isset($user['address']['city']) &&
     isset($user['preferences']['language'])
@@ -150,7 +150,7 @@ if (
 Например, фильтрация заказов пользователя по городу при использовании массивов выглядит так:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if (isset($user['id'], $user['address']['city'])) {
     $city = $user['address']['city'];
 
@@ -171,7 +171,7 @@ if (isset($user['id'], $user['address']['city'])) {
 Использование объектов и инкапсуляция данных позволяют скрыть детали и упростить взаимодействие:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $city = $user->address?->city() ?? 'Неизвестно';
 $language = $user->preferences?->language ?? 'ru';
 ```
@@ -183,7 +183,7 @@ $language = $user->preferences?->language ?? 'ru';
 по умолчанию, что дополнительно упрощает код:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 class NullAddress {
     public function city()
     {

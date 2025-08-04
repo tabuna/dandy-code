@@ -15,7 +15,7 @@
 
 Например:
 ```php
-// Плохо ❌
+// Плохо [✗]
 $user = $request->user();
 $zone = ClimateZone::find($id);
 $zone->assign($user);
@@ -29,7 +29,7 @@ return $zone;
 Это нужно не для компьютера, а для человека, чтобы они выглядели так:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $user = $request->user();
 
 $zone = ClimateZone::find($id);
@@ -48,7 +48,7 @@ return $zone;
 Ещё пример с условием и несколькими действиями:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($user->isAdmin()) {
     $settings->loadDefaults();
     $settings->setTheme('dark');
@@ -62,7 +62,7 @@ if ($user->isAdmin()) {
 Разобьём на осмысленные части:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 if ($user->isAdmin()) {
     $settings->loadDefaults();
     $settings->setTheme('dark');
@@ -87,7 +87,7 @@ if ($user->isAdmin()) {
 Например, вот так:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($user->isBanned()) {
 
     return false;
@@ -99,7 +99,7 @@ if ($user->isBanned()) {
 
 Или вот так:
 ```php
-// Плохо ❌
+// Плохо [✗]
 $logger->debug('start');
 
 $service->prepare();

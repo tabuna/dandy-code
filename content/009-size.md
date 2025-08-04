@@ -23,7 +23,7 @@
 Когда момент перед пасом выглядит вот так:
 
 ```php
-// Слишком длинный метод ❌
+// Слишком длинный метод [✗]
 public function export(string $key) 
 {
     // ...
@@ -47,7 +47,7 @@ public function export(string $key)
 
 > TODO Sprout Method! Проблема: метод перегружен и зависит от всего.
 ```php
-// Слишком длинный метод ❌
+// Слишком длинный метод [✗]
 public function export(string $key) 
 {
     // Загрузка данных
@@ -82,7 +82,7 @@ public function export(string $key)
 Хороший публичный метод должен вызывать у вас реакцию: «Да, это целостный шаг!» Например:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 $document = Document::find(1);
 
 $content = $document->export(Excel::class);
@@ -103,7 +103,7 @@ $user->notify(ExportNotification::class, [
 Например:
 
 ```php
-// Плохо ❌ 
+// Плохо [✗] 
 $document = Document::find(1);
 
 if($document->isPublished()) {
@@ -118,14 +118,14 @@ if($document->isPublished()) {
 Такой подход повышает модульность и гибкость архитектуры.
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 if ($user->isAdmin() || $user->hasRole('manager')) {
     $content = $document->export(Excel::class);
 }
 ```
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 if ($user->canExport($document)) {
     $content = $document->export(Excel::class);
 }

@@ -71,7 +71,7 @@ public function test_returns_moon_phase_data(): void
 А для этого вам потребуется использовать объекты:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 public function test_moon_phase_for_known_date(): void
 {
     $date = new DateTimeImmutable('2025-06-01');
@@ -178,7 +178,7 @@ users:
 Тогда в тесте будет выглядеть примерно так:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function test_something(): void
 {
     $user = User::find(2);
@@ -192,7 +192,7 @@ public function test_something(): void
 работает с пользователем, то лучше всего создать пользователя прямо в тесте:
 
 ```php
-// Хорошо ✅
+// Хорошо [✓]
 public function test_something(): void
 {
     $user = User::factory()
@@ -291,7 +291,7 @@ php vendor/bin/phpunit --coverage-html coverage/
 Рассмотрим пример:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function test_email_is_sent(): void
 {
     $this->dispatch(new SendEmailJob($user));
@@ -315,7 +315,7 @@ public function test_email_is_sent(): void
 Гораздо лучше — замокать очередь (или шину команд) и проверить, что нужная задача была отправлена:
 
 ```php
-// Лучше ✅
+// Лучше [✓]
 public function test_email_is_dispatched(): void
 {
     Bus::fake();
@@ -336,7 +336,7 @@ public function test_email_is_dispatched(): void
 Например, для асинхронного обновления:
 
 ```php
-// Плохо ❌
+// Плохо [✗]
 public function test_user_status_updated(): void
 {
     $this->externalApi()->newUser($user)
@@ -355,7 +355,7 @@ public function test_user_status_updated(): void
 таймаута:
 
 ```php
-// Лучше ✅
+// Лучше [✓]
 public function test_user_status_updated(): void
 {
     $this->externalApi()->newUser($user)

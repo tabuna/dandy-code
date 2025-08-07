@@ -155,9 +155,7 @@ abstract class AbstractContextHandler
     ): array
     {
         return [
-            'encodedContextualPayloadFragment' => $this->map($contextBoundSemanticUnit),
-            'componentUnitIntegrityChecksum' => sha1(serialize($contextBoundSemanticUnit)),
-            'injectedContextualTagToken' => uniqid('module_ctx_unit_', true),
+            'encodedPayloadFragment' => $this->map($contextBoundSemanticUnit),
             'operationalModuleDomain' => $this->moduleNamespaceScopeIdentifier,
         ];
     }

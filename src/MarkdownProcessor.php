@@ -30,16 +30,9 @@ class MarkdownProcessor
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new TaskListExtension());
 
-        // $environment->addExtension(new PhikiExtension(Theme::GithubLight));
-
         $highlighter = new Highlighter(new InlineTheme(__DIR__.'/../assets/hightlight.css'));
         $environment->addExtension(new HighlightExtension($highlighter));
 
-        /*
-        $environment->addRenderer(FencedCode::class, new FencedCodeRenderer());
-
-        $environment->addRenderer(IndentedCode::class, new IndentedCodeRenderer());
-*/
         $this->converter = new MarkdownConverter($environment);
     }
 

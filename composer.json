@@ -20,7 +20,6 @@
         "jolicode/jolitypo": "^1.2",
         "laravelsu/highlight": "@dev",
         "mpdf/mpdf": "^8.2",
-        "phiki/phiki": "^1.1",
         "symfony/console": "^7.3",
         "symfony/css-selector": "^7.3",
         "symfony/dom-crawler": "^7.0",

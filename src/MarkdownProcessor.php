@@ -143,8 +143,7 @@ class MarkdownProcessor
     {
         $html = $this->wrapHeadersWithParagraphs($html);
 
-
-            $html = str_replace('<h1>', <<<'HTML'
+        $html = str_replace('<h1>', <<<'HTML'
 <span style="display: block;"></span>
 <div class="chapter-padding">
     <table class="chapter-table">

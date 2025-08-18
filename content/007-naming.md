@@ -27,7 +27,7 @@ $solnce;
 Такие имена мгновенно выдают новичка.
 
 Это напоминает, как я писал СМС-сообщения в нулевых: тогда сообщения имели ограничение по
-количеству символов, а на латинской раскладке в одно сообщение помещалось намного больше текста, чем при использовании кирилицы.
+количеству символов, а на латинской раскладке в одно сообщение помещалось намного больше текста, чем при использовании кириллицы.
 Поэтому, если не удавалось уложиться в лимит, я писал транслитом:
 
 ```text
@@ -42,18 +42,18 @@ Ya vzal s soboy...
 ```php
 class Order extends Controller
 {
-    public function ...()
-    {
-        // ...
-        foreach ($zakazy as $tovar) {
-            $product->otpravka($tovar);
-        }
-        // ...
-    }
+	public function ...()
+	{
+		// ...
+		foreach ($zakazy as $tovar) {
+			$product->otpravka($tovar);
+		}
+		// ...
+	}
 }
 ```
 
-Создается разрыв контекста, фреймворк говорит на одном языке, твой код — на другом.
+Создаётся разрыв контекста, фреймворк говорит на одном языке, твой код — на другом.
 Переключаться между языками утомительно, особенно в больших проектах.
 Это снижает читаемость и замедляет понимание.
 
@@ -67,7 +67,7 @@ class Order extends Controller
 Некоторые языки даже рекомендуют подобный подход — например, в языке Go советуют:
 
 > Имя объекта, для которого вызывается метод, должно отражать его суть;
-> часто достаточно одной или двух букв, обозначающих тип 
+> часто достаточно одной или двух букв, обозначающих тип
 > (например, «c» или «cl» для «Client»).
 > Не используйте общие имена вроде «me», «this» или «self».
 
@@ -96,9 +96,9 @@ $user = User::find($id);
 ```php
 // Плохо [✗]
 class UsrCtrl extends Ctrl {
-    public function f() {
-        // ...
-    }
+	public function f() {
+		// ...
+	}
 }
 ```
 
@@ -108,10 +108,10 @@ class UsrCtrl extends Ctrl {
 // Хорошо [✓]
 class ProfileController extends Controller
 {
-    public function show()
-    {
-        // ...
-    }
+	public function show()
+	{
+		// ...
+	}
 }
 ```
 
@@ -133,7 +133,7 @@ class ProfileController extends Controller
 
 ```php
 public function retrieveUserAccountByEmailAddress(
-    string $email
+	string $email
 ): ?UserAccount
 ```
 
@@ -143,32 +143,32 @@ public function retrieveUserAccountByEmailAddress(
 ```php
 abstract class AbstractContextHandler
 {
-    use SemanticMapper;
+	use SemanticMapper;
 
-    public string $moduleScopeIdentifier = 'reporting';
+	public string $moduleScopeIdentifier = 'reporting';
 
-    public function process(
-        array $contextualizedComponentUnitPayload
-    ): array
-    {
-        $moduleScopedUnits = [];
+	public function process(
+		array $contextualizedComponentUnitPayload
+	): array
+	{
+		$moduleScopedUnits = [];
 
-        foreach ($contextualizedComponentUnitPayload as $contextBoundSemanticUnit) {
-            $moduleScopedResponseUnits[] = $this->transformContextUnit($contextBoundSemanticUnit);
-        }
+		foreach ($contextualizedComponentUnitPayload as $contextBoundSemanticUnit) {
+			$moduleScopedResponseUnits[] = $this->transformContextUnit($contextBoundSemanticUnit);
+		}
 
-        return $moduleScopedResponseUnits;
-    }
+		return $moduleScopedResponseUnits;
+	}
 
-    protected function transformContextUnit(
-        $contextBoundSemanticUnit
-    ): array
-    {
-        return [
-            'encodedPayloadFragment' => $this->map($contextBoundSemanticUnit),
-            'operationalModuleDomain' => $this->moduleScopeIdentifier,
-        ];
-    }
+	protected function transformContextUnit(
+		$contextBoundSemanticUnit
+	): array
+	{
+		return [
+			'encodedPayloadFragment' => $this->map($contextBoundSemanticUnit),
+			'operationalModuleDomain' => $this->moduleScopeIdentifier,
+		];
+	}
 }
 ```
 
@@ -180,7 +180,7 @@ abstract class AbstractContextHandler
 Этот код невозможно понять. Не потому что он глупый.
 А потому что этот код никогда ничего конкретного не делал.
 
-### Конкретика 
+### Конкретика
 
 Предыдущий пример лишен конкретики, но она может отсутствовать и в именах переменных вроде таких:
 
@@ -200,7 +200,7 @@ $item;
 А даже если разберёмся — не факт, что в другом месте кода `$data` не означает уже совсем другое.
 
 
-Это относится и к методам, иногда вполне нормально иметь метод `run` для классов, которые выполняют одну единственную функцию (Так называемые action-классы). 
+Это относится и к методам, иногда вполне нормально иметь метод `run` для классов, которые выполняют одну единственную функцию (так называемые action‑классы).
 Но это совершенно не информативно для масштабных объектов, например:
 
 ```php
@@ -237,9 +237,9 @@ $user->access();
 
 ```php
 // Хорошо [✓]
-$isAdmin = true;           
-$shouldRetry = false;      
-$user->hasAccess();        
+$isAdmin = true;
+$shouldRetry = false;
+$user->hasAccess();
 ```
 
 ### Единицы измерения
@@ -278,21 +278,21 @@ $temperatureInCelsius = 37;
 ```php
 class Temperature
 {
-    public static function fromCelsius(float $degrees): self
-    {
-        return new self($degrees);
-    }
+	public static function fromCelsius(float $degrees): self
+	{
+		return new self($degrees);
+	}
 
-    public static function fromFahrenheit(float $degrees): self
-    {
-        $celsius = self::convertFahrenheitToCelsius($degrees);
+	public static function fromFahrenheit(float $degrees): self
+	{
+		$celsius = self::convertFahrenheitToCelsius($degrees);
 
-        return new self($celsius);
-    }
+		return new self($celsius);
+	}
 
-    private function __construct(
-        public float $valueInCelsius,
-    ) {}
+	private function __construct(
+		public float $valueInCelsius,
+	) {}
 }
 ```
 
@@ -309,7 +309,7 @@ $temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 
 ### Будь кратким
 
-Не стоит пытаться расписать всё длинными именами в надежде, что это сделает код понятнее. 
+Не стоит пытаться расписать всё длинными именами в надежде, что это сделает код понятнее.
 Вместо этого давайте ровно столько информации, чтобы можно было уверенно принимать решения.
 А всё лишнее — уберите.
 
@@ -319,20 +319,20 @@ $temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 // Плохо [✗]
 class PostItemCollection
 {
-    public function addPost(Post $post)
-    {
-        // Добавляем пост в коллекцию
-    }
+	public function addPost(Post $post)
+	{
+		// Добавляем пост в коллекцию
+	}
 
-    public function hasPost(Post $post): bool
-    {
-        // Проверяем, есть ли пост в коллекции
-    }
+	public function hasPost(Post $post): bool
+	{
+		// Проверяем, есть ли пост в коллекции
+	}
 
-    public function clearPost()
-    {
-        // Очищаем коллекцию
-    }
+	public function clearPost()
+	{
+		// Очищаем коллекцию
+	}
 }
 ```
 
@@ -348,27 +348,27 @@ class PostItemCollection
 // Хорошо [✓]
 class PostCollection
 {
-    public function add(Post $post)
-    {
-        // Добавляем пост в коллекцию
-    }
+	public function add(Post $post)
+	{
+		// Добавляем пост в коллекцию
+	}
 
-    public function has(Post $post): bool
-    {
-        // Проверяем, есть ли пост в коллекции
-    }
+	public function has(Post $post): bool
+	{
+		// Проверяем, есть ли пост в коллекции
+	}
 
-    public function clear()
-    {
-        // Очищаем коллекцию
-    }
+	public function clear()
+	{
+		// Очищаем коллекцию
+	}
 }
 ```
 
 Теперь вместо длинных имён — простой класс с тремя понятными методами: `add`, `has` и `clear`.
 Каждый делает ровно то, что ожидаешь, без лишних слов.
 
-Такой подход помогает избежать длинных и сложных имён, при этом сохраняя ясность и понятность. 
+Такой подход помогает избежать длинных и сложных имён, при этом сохраняя ясность и понятность.
 Код становится чище, короче и проще для восприятия.
 
 ### Использование суффикса `-er`
@@ -380,8 +380,8 @@ class PostCollection
 - Formatter
 - Presenter
 
-Эти имена плохи не потому, что они технически неверны. 
-Они плохи потому, что не говорят ничего конкретного, слишком абстрактны. 
+Эти имена плохи не потому, что они технически неверны.
+Они плохи потому, что не говорят ничего конкретного, слишком абстрактны.
 
 Такая абстракция хороша для высокоуровневых концепций типа фреймворков, но не для конкретных классов в вашем приложении.
 
@@ -480,14 +480,14 @@ $task->finish();
 <div style="page-break-after: always;"></div>
 
 
-Пример метода вводящего в заблуждение названия:
+Пример метода с вводящим в заблуждение названием:
 ```php
 // Плохо [✗]
 public function saveModels(array $item): void
 {
-    $model = new Model();
-    $model->setAttributes($item);
-    // ...
+	$model = new Model();
+	$model->setAttributes($item);
+	// ...
 }
 ```
 
@@ -500,10 +500,10 @@ $models = [
    new Model(),
 ];
 
-$object->saveModels($models)
+$object->saveModels($models);
 ```
 
-Но вместо этого — разочарование от предательства. 
+Но вместо этого — разочарование от предательства.
 Метод берёт массив, который на самом деле описывает атрибуты одной модели.
 Название подтолкнуло к ложной ментальной модели. Название обещало одно действие, а сделало совершенно другое.
 

@@ -143,7 +143,7 @@ class MarkdownProcessor
     {
         $html = $this->wrapHeadersWithParagraphs($html);
 
-        if ($index > 1) {
+
             $html = str_replace('<h1>', <<<'HTML'
 <span style="display: block;"></span>
 <div class="chapter-padding">
@@ -157,7 +157,6 @@ class MarkdownProcessor
 </div>
 <h1>
 HTML, $html);
-        }
 
         $html = str_replace([
             "<blockquote>\n<p>{notice}",

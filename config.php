@@ -16,6 +16,7 @@ return [
      */
     'fonts' => [
         'JetBrains Mono'   => 'JetBrainsMono.ttf',
+        'EB Garamond'      => 'EBGaramond.ttf',
     ],
 
     /**

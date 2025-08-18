@@ -13,6 +13,9 @@
             margin: 0;
             padding: 0;
             text-justify: inter-word;
+            display: flex;
+            flex-flow: column;
+            gap: 1rem;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -36,19 +39,14 @@
 
         h1 {
             font-size: 2.5rem;
-            padding-bottom: 20ch;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 1;
+            letter-spacing: -0.1mm;
             max-width: 60%;
             text-wrap: balance;
             position: relative;
-        }
-
-        .diamond {
-            display: block;
-            font-size: 18pt;
-            color: #666;
-            margin-bottom: 10px;
-            font-family: sans-serif;
-            letter-spacing: -0.02em;
+            font-weight: bold;
         }
 
         h2 {
@@ -85,10 +83,7 @@
             text-decoration: underline;
         }
 
-        p {
-            text-indent: 1.2em;
-            margin-bottom: 0.9em;
-        }
+
 
         p,
         ul,
@@ -102,15 +97,27 @@
             overflow-wrap: break-word;
             text-justify: inter-word;
             text-wrap: balance;
-            margin-bottom: 20px;
+        }
+
+        ul,
+        ol {
+            /*margin-bottom: 20px;*/
+        }
+
+        p {
+            text-indent: 1.4em;
+            /*
+            padding: 0;
+            margin: 0;
+             */
         }
 
         pre {
             page-break-inside: avoid;
             break-inside: avoid;
             background-color: #fafafa;
-            padding: 12pt 15pt;
-            margin-bottom: 10mm;
+            padding: 12pt 12pt;
+            margin-bottom: 4mm;
             overflow-x: auto;
             border-radius: 4pt;
             font-family: "JetBrains Mono", Consolas, Monaco, 'Courier New', monospace;
@@ -119,6 +126,7 @@
         }
 
         pre code {
+            hyphens: none;
             background: none;
             font-size: 8pt;
             line-height: 1.5;
@@ -181,15 +189,15 @@
             padding-top: 0;
             padding-bottom: 10px;
             text-align: center;
-            color: #9B2E2E;
-            border-bottom: 2px solid #9B2E2E;
+            color: #D14444;
+            border-bottom: 2px solid #D14444;
         }
 
         blockquote {
             border-left: 4px solid #bc3b3b;
             margin-top: 0;
             margin-right: 0;
-            margin-bottom: 30px;
+            margin-bottom: 3mm;
             margin-left: 0;
             page-break-inside: avoid;
             background: #f5f2ef;
@@ -255,7 +263,7 @@
         }
 
         .chapter-padding {
-            padding-top: 10rem;
+            padding-top: 15rem;
         }
 
         .chapter-table {
@@ -271,7 +279,7 @@
         }
 
         .chapter-icon-cell {
-            background-color: #c62828;
+            background-color: #D14444;
             width: 80px;
             height: 80px;
             border-radius: 10mm;
@@ -306,23 +314,6 @@
             position: relative;
         }
 
-        .good {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 24px;
-            height: 24px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 24 24'%3E%3Cpath d='M12 0L24 24H0z'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        pre.bad::before {
-            content: "⚠️ Bad Practice";
-            display: block;
-            font-weight: bold;
-            color: #721c24;
-        }
 
         [keep_block_together] {
             page-break-inside: avoid;

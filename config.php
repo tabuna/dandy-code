@@ -15,11 +15,7 @@ return [
      * The list of fonts to be used in the different themes.
      */
     'fonts' => [
-        //        'calibri' => 'Calibri-Regular.ttf',
-        //        'times' => 'times-regular.ttf',
-        'emoji' => 'NotoColorEmoji-Regular.ttf',
-        'golos' => 'GolosText-VariableFont_wght.ttf',
-        'JetBrains Mono' => 'JetBrainsMono.ttf'
+        'JetBrains Mono'   => 'JetBrainsMono.ttf',
     ],
 
     /**
@@ -29,8 +25,8 @@ return [
         'format'        => [148, 210],
         'margin_left'   => 15, // 30,
         'margin_right'  => 15, // 10,
-        'margin_top'    => 20, // 20,
-        'margin_bottom' => 20, // 20,
+        'margin_top'    => 12, // 20,
+        'margin_bottom' => 12, // 20,
         // 'mirrorMargins' => true, // зеркалить для двухсторонней печати
     ],
 ];

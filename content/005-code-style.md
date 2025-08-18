@@ -17,6 +17,7 @@
 
 Но форматирование кода не преподают, не снижают оценки при обучении и на него вообще не обращают внимания.
 
+
 Рассмотрим небольшой фрагмент кода:
 
 ```php
@@ -31,8 +32,7 @@ class  BlipController extends Controller {
         public function  update(Request $request , Blip $blip)     {
         $blip->update($request->validated());
 
-        return redirect()->route('blips.index');
-    }
+        return redirect()->route('blips.index');}
 }
 ```
 
@@ -42,8 +42,6 @@ class  BlipController extends Controller {
 
 Исправить это — дело пары минут.
 И чем раньше вы начнёте обращать внимание на такие детали, тем легче будет работать с вашим кодом — вам и другим.
-
-<div style="page-break-after: always;"></div>
 
 ### Забудь привычки
 

@@ -30,6 +30,8 @@ while (File::where('event_guid', '=', $event->document_id)->where('status', '=',
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 А ещё через день кто-то убирает лишние `=` из условий. Или добавляет:
 
 ```diff
@@ -84,7 +86,6 @@ while (
 Вместо этого воспользуемся ранним выходом, с которым мы познакомились ранее, и вынесем условие:
 
 ```php
-// Хорошо [✓]
 while (true) {
     $count = File::where('event_guid', $event->document_id)
         ->where('status', File::STATUS_NEW)
@@ -93,7 +94,6 @@ while (true) {
     if ($count <= $secret) {
         break;
     }
-
     // ...
 }
 ```

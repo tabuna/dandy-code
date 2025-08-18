@@ -128,6 +128,8 @@ class TokenService
 }
 ```
 
+<div style="page-break-after: always;"></div>
+
 В ответ получишь:
 
 ```php

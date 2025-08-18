@@ -39,7 +39,7 @@ try {
 }
 ```
 
-– «смертельно» опасен: проблема произошла, но никто об этом не узнает. 
+Пример – «смертельно» опасен: проблема произошла, но никто об этом не узнает. 
 Главное — не потерять факт ошибки. Так делать нельзя: ошибка уходит в тень, вы теряете информацию.
 
 
@@ -109,15 +109,20 @@ foreach ($users as $user) {
 Посмотрите на пример:
 
 ```php
-// Плохо [✗]
 try {
-    throw new RuntimeException("...");
+    // ...
 } catch (Throwable $e) {
     file_put_contents('log-process.txt', 'Ошибка #5');
 }
+```
 
+<div style="page-break-after: always;"></div>
+
+В другой месте:
+
+```php
 try {
-    throw new RuntimeException("...");
+    // ...
 } catch (Throwable $e) {
     file_put_contents('log-user.txt', json_encode([
         'line' => $e->getLine(),
@@ -130,11 +135,11 @@ try {
 В этом примере исключения обработаны, но их структура абсолютно разная: в одном — формат JSON, а в другом — строка.
 Это не позволит автоматически проанализировать их и создаст лишнюю когнитивную нагрузку.
 
-Вместо этого используйте единую точку для логирования, например:
+Вместо этого используйте единую точку для логирования:
 ```php
 function logException(Throwable $e): void
 {
-    $logMessage = sprintf(
+    $message = sprintf(
         "[%s] %s in %s on line %d\nStack trace:\n%s\n\n",
         date('Y-m-d H:i:s'),
         $e->getMessage(),
@@ -143,11 +148,7 @@ function logException(Throwable $e): void
         $e->getTraceAsString()
     );
 
-    file_put_contents(
-        __DIR__ . '/error.log',
-        $logMessage,
-        FILE_APPEND
-    );
+    // 
 }
 ```
 
@@ -210,6 +211,8 @@ function shouldGoOutside(array $weather): bool
 Здесь есть и вложенные блоки `try-catch`, и `if` внутри `if`, и цикл с ловлей исключений «внутри» функции.
 Без отладки трудно понять, за какой именно шаг «цепи» падает — внешняя обработка или внутренняя. 
 
+<div style="page-break-after: always;"></div>
+
 А теперь посмотрите, как это должно быть устроено:
 
 ```php
@@ -236,6 +239,8 @@ final class DecisionEngine
 ```
 
 Всё. Логика выделена, изолирована, читается за секунду.
+
+<div style="page-break-after: always;"></div>
 
 Вы можете протестировать её без всякого дебаггера в тестах:
 

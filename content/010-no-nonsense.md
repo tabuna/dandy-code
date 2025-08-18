@@ -112,6 +112,8 @@ foreach ($users as $user) {
 
 Сохранение результата в переменную делает код не только читаемее, но и предсказуемее.
 
+<div style="page-break-after: always;"></div>
+
 ### Используй подходящие структуры данных
 
 Выбирайте правильную структуру данных с самого начала, чтобы не пришлось преобразовывать и адаптировать её в процессе.
@@ -268,7 +270,7 @@ $grouper = new NewsGrouper($news);
 Часто мы думаем: «Создам новый класс, унаследуюсь от старого и переопределю нужный метод». Быстро, просто и вроде
 аккуратно.
 
-А потом ещё раз и ещё раз:
+Например, так:
 ```php
 class NewsGrouperBySimilarText extends NewsGrouper
 {
@@ -279,7 +281,13 @@ class NewsGrouperBySimilarText extends NewsGrouper
         return $percent > 51;
     }
 }
+```
 
+<div style="page-break-after: always;"></div>
+
+А затем еще один:
+
+```php
 class NewsGrouperBySoundex extends NewsGrouper
 {
     protected function similar(string $a, string $b): bool

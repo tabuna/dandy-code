@@ -27,8 +27,6 @@ if ($status == 1) {
 И я интуитивно читаю этот код иначе: *"О, тут проверяется, что была ошибка?"*
 Мои привычки вступают в конфликт с чужими соглашениями — и я начинаю сомневаться в логике самого кода.
 
-<div style="page-break-after: always;"></div>
-
 А если значение гораздо больше, например:
 
 ```php
@@ -63,6 +61,8 @@ if ($status === STATUS_ACTIVE) {
 Теперь код стал более понятным и поддерживаемым. 
 При его чтении сразу становится понятно, что проверяется в условии.
 
+<div style="page-break-after: always;"></div>
+
 Можно пойти дальше и использовать перечисления для явного определения различных значений:
 
 ```php
@@ -74,12 +74,12 @@ enum Status: string
     case ARCHIVED = 'archived';
 }
 
-$status = Status::ACTIVE;
-
 if ($status === Status::ACTIVE) {
     // ...
 }
 ```
+
+Или числовым значением:
 
 ```php
 // Хорошо [✓]
@@ -88,8 +88,6 @@ enum Status: int
     case INACTIVE = 2;
     case ARCHIVED = 3;
 }
-
-$status = Status::ACTIVE;
 
 if ($status === Status::ACTIVE) {
     // ...
@@ -119,11 +117,9 @@ function canBePublished(Status $status): bool
 // Плохо [✗]
 class Order
 {
-    // ...
-
     public function daysSinceLastUpdate(): float
     {
-        return (((($this->lastUpdatedAt / 1_000_000) / 60) / 60) / 24);
+        return $this->updated_at / 1_000_000 / 60 / 60 / 24;
     }
 }
 ```
@@ -132,8 +128,8 @@ class Order
  «Так, это микросекунды, потом секунды, потом минуты... ага, значит это перевод времени в дни». 
 Это усложняет чтение и отвлекает от сути метода.
 
+После слепого ввода многочисленных констант пример начинает выглядеть так:
 
-После слепого ввода констант пример начинает выглядеть так:
 ```php
 // Плохо [✗]
 class Order
@@ -145,7 +141,7 @@ class Order
 
     public function daysSinceLastUpdate(): float
     {
-        return $this->lastUpdatedAt
+        return $this->updated_at
             / self::MICROSECONDS_IN_SECOND
             / self::SECONDS_IN_MINUTE
             / self::MINUTES_IN_HOUR
@@ -154,7 +150,9 @@ class Order
 }
 ```
 
-Формально — код стал «говорящим». Но читается он по-прежнему тяжело. Мы заменили магию чисел на магическое количество деталей.
+Формально — код стал «говорящим». Но читается он по-прежнему тяжело. Мы заменили магию чисел на большое количество деталей.
+
+<div style="page-break-after: always;"></div>
 
 Вместо того чтобы «расшифровывать» механику времени вручную, лучше полностью передать заботу об этом классу, который создан именно для этой работы. 
 Например, `Carbon`:
@@ -167,7 +165,7 @@ class Order
 {
     public function daysSinceLastUpdate(): float
     {
-        return Carbon::create($this->lastUpdatedAt)
+        return Carbon::create($this->updated_at)
             ->floatDiffInDays(now());
     }
 }
@@ -175,7 +173,7 @@ class Order
 
 Не всякое «магическое значение» нужно заменять на константу. Иногда **лучший способ устранить магию — не объяснять детали вообще**. Спрячьте реализацию за выразительным интерфейсом. Пусть код говорит что он делает, а не как.
 
-Ещё лучше будет, если наши свойства будут не примитивные данные, а сразу объекты, тогда:
+Ещё лучше будет, если наши свойства сразу будут объектами:
 
 ```php
 // Хорошо [✓]
@@ -183,7 +181,7 @@ class Order
 {
     public function daysSinceLastUpdate(): float
     {
-        return $this->lastUpdatedAt->floatDiffInDays(now());
+        return $this->updated_at->floatDiffInDays(now());
     }
 }
 ```
@@ -196,14 +194,10 @@ class File
 {
     public function humanReadableSize(): string
     {
-        $megabytes = $this->sizeInBytes / 1024 / 1024;
-
-        return number_format($megabytes, 2) . ' MB';
+        return $this->size / 1024 / 1024 . ' MB';
     }
 }
 ```
-
-<div style="page-break-after: always;"></div>
 
 Для которого добавили константы:
 
@@ -212,19 +206,16 @@ class File
 class File
 {
     private const SHORT_MEGABYTE = 'MB';
-    private const BYTES_IN_KILOBYTE = 1024;
-    private const KILOBYTES_IN_MEGABYTE = 1024;
+    private const BYTES_IN_MEGABYTE = 1024 * 1024;
 
     public function humanReadableSize(): string
     {
-        $megabytes = $this->size
-            / self::BYTES_IN_KILOBYTE
-            / self::KILOBYTES_IN_MEGABYTE;
+        $megabytes = $this->size / self::BYTES_IN_MEGABYTE;
 
         return sprintf(
-            '%.2f %s', 
-            $megabytes,
-            self::SHORT_MEGABYTE
+            '%.2f %s',
+             $megabytes,
+             self::SHORT_MEGABYTE
         );
     }
 }
@@ -236,8 +227,6 @@ class File
 
 ```php
 // Хорошо [✓]
-use DataSize;
-
 class File
 {
     public function humanReadableSize(): string

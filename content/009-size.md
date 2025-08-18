@@ -27,11 +27,11 @@
 // Слишком длинный метод [✗]
 public function export(string $key)
 {
-	// ...
-	// ...
-	// 1000 строк кода
-
-	return $result;
+    // ...
+    // ...
+    // 1000 строк кода
+    
+    return $result;
 }
 ```
 
@@ -55,25 +55,25 @@ public function export(string $key)
 // Слишком длинный метод [✗]
 public function export(string $key)
 {
-	// Загрузка данных
-	// Валидация
-	// Преобразование
-	// Генерация отчёта
-	// Сохранение в файл
-	// Отправка по почте
-	// И ещё десяток шагов...
-	$this->step();
-	$this->step();
-	$this->step();
-	
-	$this->load();
-	$this->validate();
-	$this->transform();
-	$this->generateReport();
-	// И ещё десяток шагов...
-	$this->sendMail();
-
-	return $result;
+    // Загрузка данных
+    // Валидация
+    // Преобразование
+    // Генерация отчёта
+    // Сохранение в файл
+    // Отправка по почте
+    // И ещё десяток шагов...
+    $this->step();
+    $this->step();
+    $this->step();
+    
+    $this->load();
+    $this->validate();
+    $this->transform();
+    $this->generateReport();
+    // И ещё десяток шагов...
+    $this->sendMail();
+    
+    return $result;
 }
 ```
 
@@ -96,7 +96,7 @@ $document = Document::find(1);
 $content = $document->export(Excel::class);
 
 $user->notify(ExportNotification::class, [
-	'content' => $content->toString(),
+     'content' => $content->toString(),
 ]);
 ```
 
@@ -116,7 +116,7 @@ $user->notify(ExportNotification::class, [
 $document = Document::find(1);
 
 if($document->isPublished()) {
-	$content = $document->export(Excel::class);
+    $content = $document->export(Excel::class);
 }
 ```
 
@@ -131,14 +131,14 @@ if($document->isPublished()) {
 ```php
 // Плохо [✗]
 if ($user->isAdmin() || $user->hasRole('manager')) {
-	$content = $document->export(Excel::class);
+    $content = $document->export(Excel::class);
 }
 ```
 
 ```php
 // Хорошо [✓]
 if ($user->canExport($document)) {
-	$content = $document->export(Excel::class);
+    $content = $document->export(Excel::class);
 }
 ```
 

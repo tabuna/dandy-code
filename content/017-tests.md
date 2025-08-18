@@ -27,29 +27,29 @@
 О чём я говорю? Как это связано с разработкой?
 
 Допустим, у нас есть endpoint, который должен вернуть фазу Луны на определённую дату.
-Мы можем написать feature-тест, который проверит, что функция, вычисляющая фазу Луны, работает правильно.
-В нём мы обратимся по адресу `/api/moon?date=2025-06-01`, получим ответ и проверим, что он соответствует ожидаемому
+Мы можем написать feature-тест, который проверит, что функция, вычисляющая фазу Луны, работает корректно.
+В котором мы обратимся по url-адресу `/api/moon?date=2025-06-01`, получим ответ и проверим, что он соответствует ожидаемому
 значению.
 
 ```php
 public function test_returns_moon_phase_data(): void
 {
-	$response = $this->get('/api/moon', [
-			'date' => '2025-06-01',
-		])
-		 ->assertOk()
-		 ->assertJsonStructure([
-			'age',
-			'phase',
-			'distance',
-			'nextNewMoon'
-		 ])
-		 ->json();
-		 
-	[$age, $phase] = $response;
+    $response = $this->get('/api/moon', [
+        'date' => '2025-06-01',
+    ])
+        ->assertOk()
+        ->assertJsonStructure([
+            'age',
+            'phase',
+            'distance',
+            'nextNewMoon'
+        ])
+        ->json();
 
-	$this->assertEquals(13.8, round($age, 1));
-	$this->assertEqualsWithDelta(0.47, $phase, 0.01);
+    [$age, $phase] = $response;
+
+    $this->assertEquals(13.8, round($age, 1));
+    $this->assertEqualsWithDelta(0.47, $phase, 0.01);
 }
 ```
 
@@ -75,12 +75,12 @@ public function test_returns_moon_phase_data(): void
 // Хорошо [✓]
 public function test_moon_phase_for_known_date(): void
 {
-	$date = new DateTimeImmutable('2025-06-01');
-	$moon = new MoonPhase($date);
+    $date = new DateTimeImmutable('2025-06-01');
+    $moon = new MoonPhase($date);
 
-	// Проверяем округлённые значения
-	$this->assertEquals(13.8, round($moon->age, 1));
-	$this->assertEqualsWithDelta(0.47, $moon->phase, 0.01);
+    // Проверяем округлённые значения
+    $this->assertEquals(13.8, round($moon->age, 1));
+    $this->assertEqualsWithDelta(0.47, $moon->phase, 0.01);
 }
 ```
 
@@ -106,9 +106,9 @@ $exporter->export('/tmp/weather.zip');
 
 $importer = new WeatherHistoryImporter();
 $importer->import([
-	'devices' => '/tmp/weather/devices.xml',
-	'locations' => '/tmp/weather/locations.xml',
-	'readings' => '/tmp/weather/readings.xml',
+        'devices' => '/tmp/weather/devices.xml',
+        'locations' => '/tmp/weather/locations.xml',
+        'readings' => '/tmp/weather/readings.xml',
 ]);
 ```
 
@@ -137,14 +137,14 @@ $importer->import([
 ```php
 public function test_something(): void
 {
-	// Arrange: подготовка данных
-	$obj = new MyClass(...);
+    // Arrange: подготовка данных
+    $obj = new MyClass(...);
 
-	// Act: выполнение действия
-	$result = $obj->doWork();
+    // Act: выполнение действия
+    $result = $obj->doWork();
 
-	// Assert: проверка результата
-	$this->assertTrue($result->isSuccessful());
+    // Assert: проверка результата
+    $this->assertTrue($result->isSuccessful());
 }
 ```
 
@@ -185,7 +185,7 @@ users:
 // Плохо [✗]
 public function test_something(): void
 {
-	$user = User::find(2);
+    $user = User::find(2);
 }
 ```
 
@@ -199,9 +199,9 @@ public function test_something(): void
 // Хорошо [✓]
 public function test_something(): void
 {
-	$user = User::factory()
-		->withPassword('password123')
-		->create();
+    $user = User::factory()
+        ->withPassword('password123')
+        ->create();
 }
 ```
 
@@ -265,7 +265,7 @@ vendor/bin/phpunit --order-by=random
 
 ```php
 if ($user->isPremium()) {
-	// ...
+    // ...
 }
 ```
 
@@ -303,13 +303,13 @@ php vendor/bin/phpunit --coverage-html coverage/
 // Плохо [✗]
 public function test_email_is_sent(): void
 {
-	$this->dispatch(new SendEmailJob($user));
+    $this->dispatch(new SendEmailJob($user));
 
-	sleep(3); // надеемся, что задача обработается
+    sleep(3); // надеемся, что задача обработается
 
-	$this->assertDatabaseHas('emails', [
-		'user_id' => $user->id
-	]);
+    $this->assertDatabaseHas('emails', [
+        'user_id' => $user->id
+    ]);
 }
 ```
 
@@ -334,7 +334,7 @@ public function test_email_is_dispatched(): void
     Bus::assertDispatched(
         SendEmailJob::class,
         fn($job) => $job->user->id === $user->id
-	);
+    );
 }
 ```
 
@@ -348,32 +348,30 @@ public function test_email_is_dispatched(): void
 // Плохо [✗]
 public function test_user_status_updated(): void
 {
-	$this->externalApi()->newUser($user);
+    $this->externalApi()->newUser($user);
 
-	// надеемся, что данные обработаются за это время
-	sleep(5);
+    sleep(5); // надеемся, что данные обработаются за это время
 
-	$this->assertEquals(
-		'processed',
-		$this->externalApi()->status($user->id)
-	);
+    $this->assertEquals(
+        'processed',
+        $this->externalApi()->status($user->id)
+    );
 }
 ```
 
-Гораздо эффективнее реализовать проверку с повторным опросом, которая ждёт изменения состояния в течение заданного
+Гораздо лучше реализовать проверку с повторным опросом, которая ждёт изменения состояния в течение заданного
 таймаута:
 
 ```php
 // Лучше [✓]
 public function test_user_status_updated(): void
 {
-	$this->externalApi()->newUser($user);
+    $this->externalApi()->newUser($user);
 
-	$this->waitUntil(function () {
-		return $this
-			->externalApi()
-			->status($user->id) === 'processed';
-	}, 10);
+    $this->waitUntil(function () {
+        return $this->externalApi()
+                ->status($user->id) === 'processed';
+    }, 10);
 }
 ```
 

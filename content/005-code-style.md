@@ -72,6 +72,7 @@ extends Controller
 
 ```php
 extends Controller {
+
     // ...
 }
 ```

@@ -61,7 +61,7 @@ $yesterday = date('Y-m-d', strtotime('yesterday'));
 // поэтому не использует JSON‑функции
 public function processData($data)
 {
-	// Код, который уже использует JSON‑функции
+    // Код, который уже использует JSON‑функции
 }
 ```
 

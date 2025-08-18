@@ -43,14 +43,14 @@ Ya vzal s soboy...
 ```php
 class Order extends Controller
 {
-	public function ...()
-	{
-		// ...
-		foreach ($zakazy as $tovar) {
-			$product->otpravka($tovar);
-		}
-		// ...
-	}
+    public function ...()
+    {
+        // ...
+        foreach ($zakazy as $tovar) {
+                $product->otpravka($tovar);
+        }
+        // ...
+    }
 }
 ```
 
@@ -100,9 +100,9 @@ $user = User::find($id);
 ```php
 // Плохо [✗]
 class UsrCtrl extends Ctrl {
-	public function f() {
-		// ...
-	}
+    public function f() {
+            // ...
+    }
 }
 ```
 
@@ -114,10 +114,10 @@ class UsrCtrl extends Ctrl {
 // Хорошо [✓]
 class ProfileController extends Controller
 {
-	public function show()
-	{
-		// ...
-	}
+    public function show()
+    {
+            // ...
+    }
 }
 ```
 
@@ -139,7 +139,7 @@ class ProfileController extends Controller
 
 ```php
 public function retrieveUserAccountByEmailAddress(
-	string $email
+    string $email
 ): ?UserAccount
 ```
 
@@ -149,32 +149,32 @@ public function retrieveUserAccountByEmailAddress(
 ```php
 abstract class AbstractContextHandler
 {
-	use SemanticMapper;
+    use SemanticMapper;
 
-	public string $moduleScopeIdentifier = 'reporting';
+    public string $moduleScopeIdentifier = 'reporting';
 
-	public function process(
-		array $contextualizedComponentUnitPayload
-	): array
-	{
-		$moduleScopedUnits = [];
+    public function process(
+        array $contextualizedComponentUnitPayload
+    ): array
+    {
+        $moduleScopedUnits = [];
 
-		foreach ($contextualizedComponentUnitPayload as $contextBoundSemanticUnit) {
-			$moduleScopedResponseUnits[] = $this->transformContextUnit($contextBoundSemanticUnit);
-		}
+        foreach ($contextualizedComponentUnitPayload as $contextBoundSemanticUnit) {
+            $moduleScopedResponseUnits[] = $this->transformContextUnit($contextBoundSemanticUnit);
+        }
 
-		return $moduleScopedResponseUnits;
-	}
+        return $moduleScopedResponseUnits;
+    }
 
-	protected function transformContextUnit(
-		$contextBoundSemanticUnit
-	): array
-	{
-		return [
-			'encodedPayloadFragment' => $this->map($contextBoundSemanticUnit),
-			'operationalModuleDomain' => $this->moduleScopeIdentifier,
-		];
-	}
+    protected function transformContextUnit(
+        $contextBoundSemanticUnit
+    ): array
+    {
+        return [
+            'encodedPayloadFragment' => $this->map($contextBoundSemanticUnit),
+            'operationalModuleDomain' => $this->moduleScopeIdentifier,
+        ];
+    }
 }
 ```
 
@@ -287,21 +287,21 @@ $temperatureInCelsius = 37;
 ```php
 class Temperature
 {
-	public static function fromCelsius(float $degrees): self
-	{
-		return new self($degrees);
-	}
+    public static function fromCelsius(float $degrees): self
+    {
+        return new self($degrees);
+    }
 
-	public static function fromFahrenheit(float $degrees): self
-	{
-		$celsius = self::convertFahrenheitToCelsius($degrees);
+    public static function fromFahrenheit(float $degrees): self
+    {
+        $celsius = self::convertFahrenheitToCelsius($degrees);
+        
+        return new self($celsius);
+    }
 
-		return new self($celsius);
-	}
-
-	private function __construct(
-		public float $valueInCelsius,
-	) {}
+    private function __construct(
+        public float $valueInCelsius,
+    ) {}
 }
 ```
 
@@ -328,20 +328,20 @@ $temperature = Temperature::fromCelsius(37.0);    // 37.0°C
 // Плохо [✗]
 class PostItemCollection
 {
-	public function addPost(Post $post)
-	{
-		// Добавляем пост в коллекцию
-	}
+    public function addPost(Post $post)
+    {
+        // Добавляем пост в коллекцию
+    }
 
-	public function hasPost(Post $post): bool
-	{
-		// Проверяем, есть ли пост в коллекции
-	}
+    public function hasPost(Post $post): bool
+    {
+        // Проверяем, есть ли пост в коллекции
+    }
 
-	public function clearPost()
-	{
-		// Очищаем коллекцию
-	}
+    public function clearPost()
+    {
+        // Очищаем коллекцию
+    }
 }
 ```
 
@@ -357,20 +357,20 @@ class PostItemCollection
 // Хорошо [✓]
 class PostCollection
 {
-	public function add(Post $post)
-	{
-		// Добавляем пост в коллекцию
-	}
+    public function add(Post $post)
+    {
+        // Добавляем пост в коллекцию
+    }
 
-	public function has(Post $post): bool
-	{
-		// Проверяем, есть ли пост в коллекции
-	}
+    public function has(Post $post): bool
+    {
+        // Проверяем, есть ли пост в коллекции
+    }
 
-	public function clear()
-	{
-		// Очищаем коллекцию
-	}
+    public function clear()
+    {
+        // Очищаем коллекцию
+    }
 }
 ```
 
@@ -499,9 +499,9 @@ $task->finish();
 // Плохо [✗]
 public function saveModels(array $item): void
 {
-	$model = new Model();
-	$model->setAttributes($item);
-	// ...
+    $model = new Model();
+    $model->setAttributes($item);
+    // ...
 }
 ```
 
@@ -527,3 +527,37 @@ $object->saveModels($models);
 ошибиться и реже вносят изменения.
 
 
+
+
+### Соглашение об именовании
+
+Имена — это не только классы, объекты и методы. Они затрагивают всё вокруг.
+Например, в веб-приложении важно выбрать понятные имена для адресов:
+
+```text
+https://example.com/WeatherReport
+https://example.com/weather_report
+https://example.com/weather-report
+```
+
+То же касается ключей в JSON-переводах:
+
+```json
+{
+  "WeatherReport": "Отчёт о погоде",
+  "weather_report": "Отчёт о погоде",
+  "weather-report": "Отчёт о погоде"
+}
+```
+
+Или файлов и директорий, не связанных напрямую с языком или фреймворком:
+
+```php
+project
+├─ WeatherReports
+├─ weather_reports
+├─ weather-reports
+└─ ...
+```
+
+Чтобы всё оставалось предсказуемым, выработайте в команде своё соглашение и используйте его там, где общие правила не помогают.

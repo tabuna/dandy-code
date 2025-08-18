@@ -295,7 +295,7 @@ class Temperature
     public static function fromFahrenheit(float $degrees): self
     {
         $celsius = self::convertFahrenheitToCelsius($degrees);
-        
+
         return new self($celsius);
     }
 

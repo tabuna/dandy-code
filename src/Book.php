@@ -230,7 +230,6 @@ class Book
      */
     protected function addPageBreak(): void
     {
-        // $this->pdf->AddPage();
         $this->pdf->WriteHTML('<div style="page-break-after: always;"></div>');
     }
 

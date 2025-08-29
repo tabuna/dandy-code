@@ -145,6 +145,9 @@ $fileSystem
 Стоит отдельно упомянуть, что многие разработчики и известные авторы, например, Роберт Мартин — автор "Чистого кода",
 считают использование булевых аргументов признаком плохого тона. И предлагают создавать отдельный метод вместо передачи
 булева значения.
+
+<div style="page-break-after: always;"></div>
+
 Например, вместо:
 
 ```php
@@ -188,8 +191,6 @@ $fileSystem->reWrite(
 // Плохо [✗]
 class ExcludeList
 {
-    private array $list = [];
-
     public function add(
         string $itemName,
         string $itemIdentityName,
@@ -217,8 +218,6 @@ class ExcludeList
 // Хорошо [✓]
 class ExcludeList
 {
-    private array $list = [];
-
     public function add(Model $model): static
     {
         $key = $model->getKey();

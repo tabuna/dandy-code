@@ -47,7 +47,7 @@ class Order extends Controller
     {
         // ...
         foreach ($zakazy as $tovar) {
-                $product->otpravka($tovar);
+            $product->otpravka($tovar);
         }
         // ...
     }
@@ -101,7 +101,7 @@ $user = User::find($id);
 // Плохо [✗]
 class UsrCtrl extends Ctrl {
     public function f() {
-            // ...
+        // ...
     }
 }
 ```
@@ -116,7 +116,7 @@ class ProfileController extends Controller
 {
     public function show()
     {
-            // ...
+        // ...
     }
 }
 ```
@@ -127,7 +127,7 @@ class ProfileController extends Controller
 
 Некоторые даже добавляют:
 
-> «Пусть имя будет длинным — это сделает код понятнее».
+> «Пусть имя будет длинным — это сделает код самодокументированным и более понятным».
 
 Нет. Не делает.
 Особенно если это имя — дымовая завеса над тем, что в коде нет ни логики, ни смысла.

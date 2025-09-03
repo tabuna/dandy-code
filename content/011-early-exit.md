@@ -174,7 +174,7 @@ public function hasAccess(User $user): bool
         // Пользователь является администратором
         return true;
     }
-    
+
     // Пользователь имеет разрешение на редактирование
     return $user->isGranted(GRANT::EDIT);
 }

@@ -1,46 +1,61 @@
 ## Работа со строками
 
-Строки — один из самых распространённых типов данных в PHP. 
-Но именно из-за частоты их использования легко скатиться в запутанный и плохо читаемый код. 
-Рассмотрим три типичных ошибки и способы их избежать.
+Даже для простых типов данных — строк и чисел — стоит использовать объекты.
+Мы уже видели пример класса `Temperature`, который скрывает от нас работу с единицами измерения.
+Теперь посмотрим на три типичные ошибки при работе со строками и способы их избежать.
 
-Часто встречающийся пример:
-
+Часто обработку строки записывают через вложенные вызовы:
 ```php
 // Плохо [✗]
 echo strtoupper(trim(substr($input, 0, 10)));
 ```
 
-Код работает, но превращается в «матрёшку функций». 
-Чтение требует разбирать его справа налево, и при малейшем изменении логики всё рассыпается.
+Код работает, но превращается в «матрёшку функций» из-за их чрезмерного количества вложенных функций.
+Читать его приходится справа налево, что совсем не свойственно для латиницы на которой мы пишем код.
+Это снова увеличивает когнитивную нагрузку и скрывает намерение.
 
-**Лучший подход** — использовать объекты или специализированные классы для работы со строками:
+Для чтения удобнее сделать, класс:
 
 ```php
 // Хорошо [✓]
-class Text {
+// Хорошо [✓]
+class Text implements Stringable {
     public function __construct(private string $value) {}
 
-    public function cut(int $length): self {
-        $this->value = substr($this->value, 0, $length);
-        return $this;
+    public function cut(int $length): static 
+    {
+        if ($length < 0) {
+            throw new \InvalidArgumentException('Length must be non-negative.');
+        }
+        
+        return new static(substr($this->value, 0, $length));
     }
 
-    public function trim(): self {
-        $this->value = trim($this->value);
-        return $this;
+    public function trim(): static 
+    {
+        return new static(trim($this->value));
     }
 
-    public function upper(): self {
-        $this->value = strtoupper($this->value);
-        return $this;
+    public function upper(): static 
+    {
+        return new static(strtoupper($this->value));
     }
 
-    public function value(): string {
+    public function value(): string 
+    {
         return $this->value;
     }
+    
+    public function __toString(): string
+    {
+        return $this->value();
+    }
 }
+```
 
+С таким классом обработка становится читаемой и выразительной:
+
+```php
 echo (new Text($input))
     ->cut(10)
     ->trim()
@@ -49,6 +64,10 @@ echo (new Text($input))
 ```
 
 Теперь мы читаем цепочку шагов, а не пытаемся расшифровать вложенные функции.
+
+> **Обратите внимание на иммутабельность.**
+> Каждый шаг возвращает новый объект при котором не будет скрытых побочных эффектов.
+
 
 ### Конкатенация строк
 

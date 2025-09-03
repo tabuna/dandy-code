@@ -179,7 +179,7 @@ function logException(Throwable $e): void
 
 Но позвольте — если вам нужно так делать, значит, что-то пошло не так!
 
-Это не норма. Значит, ваш код неочевиден, сложен и плохо структурирован.
+**Это не норма**. Значит, ваш код неочевиден, сложен и плохо структурирован.
 
 Настоящая причина, по которой вам нужно пошагово проходить каждую строчку, в том, что вы не понимаете, что происходит в
 системе.
@@ -196,7 +196,7 @@ function shouldGoOutside(array $weather): bool
     return ! (function () use (&$weather, $check) {
         try {
             extract($weather, EXTR_SKIP);
-            if ($this->check($temperature, -10, 35, function ($t) {
+            if ($this->check($temp, -10, 35, function ($t) {
                 return $this->isExtremeTemperature($t);
             })) {
                 return false;

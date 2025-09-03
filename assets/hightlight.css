@@ -1,51 +1,59 @@
+/*
 pre, code {
-    color: #1f2328;
+    background-color: #f4f4f4;
+    color: #1a1a1a;
 }
+
 
 .hl-keyword {
-    color: #cf222e;
+    color: #b22222;
 }
+
 
 .hl-property {
-    color: #8250df;
+    color: #6a0dad;
 }
 
+
 .hl-attribute {
+    color: #795548;
     font-style: italic;
 }
 
+
 .hl-type {
-    color: #EA4334;
+    color: #d93025;
 }
+
 
 .hl-generic {
-    color: #9d3af6;
+    color: #9c27b0;
 }
 
-.hl-value {
-    color: #0a3069;
-}
 
-.hl-literal {
-    color: #0a3069;
-}
-
+.hl-value,
+.hl-literal,
 .hl-number {
-    color: #0a3069;
+    color: #0645ad;
 }
+
 
 .hl-variable {
-    color: #953800;
+    color: #c16000;
 }
 
+
 .hl-comment {
-    color: #6e7781;
+    color: #4b5258;
+    font-weight: 500;
 }
+
 
 .hl-blur {
     filter: blur(2px);
 }
 
+/ выделения /
 .hl-strong {
     font-weight: bold;
 }
@@ -69,7 +77,7 @@ pre, code {
 .hl-gutter {
     display: inline-block;
     font-size: 0.9em;
-    color: #555;
+    color: #333;
     padding: 0 1ch;
     margin-right: 1ch;
     user-select: none;
@@ -83,4 +91,94 @@ pre, code {
 .hl-gutter-deletion {
     background-color: #EA4334;
     color: #fff;
+}
+*/
+
+pre, code {
+    background-color: #dfdfdf;
+    color: #000;
+}
+
+.hl-keyword {
+    color: #000;
+}
+
+.hl-property {
+    color: #222;
+}
+
+.hl-attribute {
+    color: #333;
+}
+
+.hl-type {
+    color: #444;
+}
+
+.hl-generic {
+    color: #444;
+}
+
+.hl-value,
+.hl-literal,
+.hl-number {
+    color: #555;
+}
+
+.hl-variable {
+    color: #111;
+}
+
+.hl-comment {
+    color: #666;
+    font-weight: 400;
+    font-style: oblique;
+}
+
+.hl-blur {
+    filter: blur(2px);
+}
+
+.hl-strong {
+    color: #000;
+    text-decoration: underline;
+}
+
+.hl-em {
+    color: #666;
+}
+
+.hl-addition {
+    display: inline-block;
+    min-width: 100%;
+    border-left: 3px solid #000;
+    background-color: transparent;
+}
+
+.hl-deletion {
+    display: inline-block;
+    min-width: 100%;
+    border-left: 3px dashed #000;
+    background-color: transparent;
+}
+
+.hl-gutter {
+    display: inline-block;
+    font-size: 0.9em;
+    color: #222;
+    padding: 0 1ch;
+    margin-right: 1ch;
+    user-select: none;
+}
+
+.hl-gutter-addition {
+    border-left: 3px solid #000;
+    color: #000;
+    background: none;
+}
+
+.hl-gutter-deletion {
+    border-left: 3px dashed #000;
+    color: #000;
+    background: none;
 }

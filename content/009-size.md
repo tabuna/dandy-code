@@ -96,7 +96,7 @@ $document = Document::find(1);
 $content = $document->export(Excel::class);
 
 $user->notify(ExportNotification::class, [
-     'content' => $content->toString(),
+    'content' => $content->toString(),
 ]);
 ```
 

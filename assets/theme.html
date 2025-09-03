@@ -1,6 +1,4 @@
 <header>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
     <style>
         body {
             font-family: "EB Garamond", Georgia, Calibri, sans-serif;
@@ -99,27 +97,17 @@
             text-wrap: balance;
         }
 
-        ul,
-        ol {
-            /*margin-bottom: 20px;*/
-        }
-
         p {
             text-indent: 1.4em;
-            /*
-            padding: 0;
-            margin: 0;
-             */
         }
 
         pre {
             page-break-inside: avoid;
             break-inside: avoid;
-            background-color: #fafafa;
             padding: 12pt 12pt;
             margin-bottom: 4mm;
             overflow-x: auto;
-            border-radius: 4pt;
+            //border-radius: 4pt;
             font-family: "JetBrains Mono", Consolas, Monaco, 'Courier New', monospace;
             font-size: 8pt;
             line-height: 1.5;
@@ -130,7 +118,6 @@
             background: none;
             font-size: 8pt;
             line-height: 1.5;
-            color: #2d2d2d;
             text-align: left;
             font-family: "JetBrains Mono", Consolas, Monaco, 'Courier New', monospace;
             letter-spacing: 0.02em;
@@ -140,8 +127,10 @@
         }
 
         code {
-            color: #A5215D;
-            background-color: #faf7f7;
+            //color: #A5215D;
+            //background-color: #f4f4f4;
+            color: #000;
+            background-color: #dedede;
             border-radius: .2rem;
             padding: .12rem .2rem;
             font-size: 100%;
@@ -200,7 +189,8 @@
             margin-bottom: 3mm;
             margin-left: 0;
             page-break-inside: avoid;
-            background: #f5f2ef;
+            background-color: #dedede;
+            //background: #f5f2ef;
             padding: 20px;
             font-style: italic;
         }
@@ -221,7 +211,8 @@
         }
 
         blockquote.notice {
-            background-color: #f0f5ff;
+            //background-color: #f0f5ff;
+            background-color: #dedede;
             border-left: solid 5px #5b87dd;
             padding: 20px;
         }
@@ -231,7 +222,8 @@
         }
 
         blockquote.warning {
-            background-color: #ffeced;
+            //background-color: #ffeced;
+            background-color: #dedede;
             border-left: solid 5px #dd787d;
             padding: 20px;
         }
@@ -297,12 +289,6 @@
 
         h3 + p {
             page-break-inside: avoid;
-        }
-
-        .quote-icon {
-            display: block;
-            font-size: 16pt;
-            color: red;
         }
 
         p:has(+ pre) {

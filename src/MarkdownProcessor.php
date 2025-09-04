@@ -4,6 +4,7 @@ namespace Dandy\Book;
 
 use Illuminate\Support\Str;
 use JoliTypo\Fixer;
+use Laravelsu\Highlight\Languages\Shell\ShellLanguage;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
@@ -31,6 +32,11 @@ class MarkdownProcessor
         $environment->addExtension(new TaskListExtension());
 
         $highlighter = new Highlighter(new InlineTheme(__DIR__.'/../assets/hightlight.css'));
+
+        $highlighter->addLanguage(
+            new ShellLanguage,
+        );
+
         $environment->addExtension(new HighlightExtension($highlighter));
 
         $this->converter = new MarkdownConverter($environment);
@@ -89,6 +95,13 @@ class MarkdownProcessor
         $syllable->setMinWordLength(2);
 
         $html = $syllable->hyphenateHtmlText($html);
+
+        $html = Str::of($html)
+            ->replace('✓', '<span style="font-family: dejavusans;">✓</span>')
+            ->replace('✗', '<span style="font-family: dejavusans;">✗</span>')
+            ->replace('TODO:', '<span style="font-weight: bold;">TODO:</span>')
+            ->replace('HACK:', '<span style="font-weight: bold;">HACK:</span>')
+            ->replace('FIXME:', '<span style="font-weight: bold;">FIXME:</span>');
 
         $syllable->setLanguage('en-us');
 

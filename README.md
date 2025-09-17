@@ -3,7 +3,9 @@
 > Руководство о том, как писать код с аккуратностью,  
 > уважением к читателю и стилем — даже если вы новичок.
 
-**[Скачать книгу в PDF](https://raw.githubusercontent.com/tabuna/dandy-code/refs/heads/main/export/Dandy%20Code.pdf)**
+- **[Скачать книгу в PDF](https://raw.githubusercontent.com/tabuna/dandy-code/refs/heads/main/export/Dandy%20Code.pdf)**
+- **[Купить на Ozon](https://www.ozon.ru/product/dendi-kod-kak-pisat-kod-s-akkuratnostyu-uvazheniem-k-chitatelyu-i-stilem-dazhe-esli-vy-novichok-2855017761)**
+- **[Купить на Avito](https://www.avito.ru/lipetsk/knigi_i_zhurnaly/dendi-kod_7591712659)**
 
 ## 📘 О книге
 

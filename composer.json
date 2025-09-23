@@ -29,9 +29,6 @@
         "symfony/var-dumper": "^7.3",
         "laravel/pint": "v1.22.1"
     },
-    "bin": [
-        "dendy"
-    ],
     "autoload": {
         "psr-4": {
             "Dandy\\Book\\": "src/"

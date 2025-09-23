@@ -114,7 +114,7 @@ class Book
 
             $this->pdf->defHTMLHeaderByName($slug, <<<HTML
                 <span style="text-align: center; color: #817d7d; font-size: 10px">
-                    Dendy Code | $title
+                    $title
                 </span>
             HTML);
 

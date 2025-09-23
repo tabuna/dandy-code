@@ -52,7 +52,7 @@ composer install
 После этого, выполните команду сборки:
 
 ```shell
-php dendy build
+php dandy build
 ```
 
 После завершения процесса скомпилированный PDF будет доступен в каталоге `export`.

@@ -32,6 +32,11 @@
 Поделитесь ею с друзьями, коллегами или в любимом чате.  
 Для меня это не менее ценно, чем ⭐️ или донат.
 
+## 🚀 Видео-интервью о книги на подкасте "Так не сойдет"
+<img width="2134" height="1198" alt="CleanShot 2025-11-13 at 14 47 19@2x" src="https://github.com/user-attachments/assets/0d84ea5f-36e9-41de-9e1e-886fc90f52c0" />
+
+Жми [сюда](https://youtu.be/bnjm1acoCmc?si=xUI1oOJy9WP4YB6X)
+
 
 ## 🛠️ Генерация PDF
 

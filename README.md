@@ -33,7 +33,13 @@
 Для меня это не менее ценно, чем ⭐️ или донат.
 
 ## 🚀 Видео-интервью о книге на подкасте "Так не сойдет"
-<img width="2134" height="1198" alt="Интервью о книге Денди-код на подкасте Так не сойдет" src="https://github.com/user-attachments/assets/0d84ea5f-36e9-41de-9e1e-886fc90f52c0" />
+
+<a href="https://youtu.be/bnjm1acoCmc?si=xUI1oOJy9WP4YB6X">
+    <img width="2134" height="1198" 
+      alt="Интервью о книге Денди-код на подкасте Так не сойдет" 
+      src="https://github.com/user-attachments/assets/0d84ea5f-36e9-41de-9e1e-886fc90f52c0" 
+      />
+</a>
 
 Жми [сюда](https://youtu.be/bnjm1acoCmc?si=xUI1oOJy9WP4YB6X)
 
